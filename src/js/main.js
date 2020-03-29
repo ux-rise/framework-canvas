@@ -1,25 +1,6 @@
-const { append, cons, first, isEmpty, isList, length, rest } = functionalLight;
-
-const allow = [40, 80, 120, 160, 200, 240, 280, 320, 360, 400, 440, 480];
-function lookupanyx(L, v) {
-   return internal_lookupanyx(L, v);
-}
-
-function internal_lookupanyx(L, v, i = 0) {
-   if (first(L) === v) return i;
-   if (first(L) === undefined) return -1;
-
-   return internal_lookupanyx(rest(L), v, i + 1);
-}
-
-/************************************************************************************/
-/************************************************************************************/
-
 function make(data, attribute) {
    return Object.assign({}, data, attribute);
 }
-
-
 
 function sketchProc(processing) {
 
@@ -27,16 +8,24 @@ function sketchProc(processing) {
    processing.setup = function () {
       processing.frameRate(30);
       processing.size(481, 481);
-      processing.state = { boca: false, apertura: 0, x: 240, y: 240, direction: 0 };
+      processing.state = {
+         pacman: {
+            boca: false,
+            apertura: 20,
+            x: 240,
+            y: 240,
+            direction: 0,
+            NextDirection: 0,
+            rotate: 0
+         }
+      };
    }
-   const radians = processing.radians;
-
 
    // Dibuja algo en el canvas. Aqui se pone todo lo que quieras pintar
    processing.drawGame = function (world) {
-      processing.background(23, 32, 42);
+      processing.background(18, 20, 53);
       processing.stroke(1);
-      processing.fill(23, 32, 42);
+      processing.fill(18, 20, 53);
 
       for (let y = 0; y < 480; y += 40) {
          for (let x = 0; x < 480; x += 40) {
@@ -44,57 +33,35 @@ function sketchProc(processing) {
          }
       }
 
+      makeMap(processing);
+
       processing.noStroke();
 
       processing.fill(23, 100, 80);
-      processing.arc(world.x, world.y, 30, 30, radians(world.apertura), radians(360 - world.apertura));
+      processing.translate(world.pacman.x, world.pacman.y);
+      processing.rotate(processing.radians(world.rotate));
+      processing.arc(0, 0, 30, 30, processing.radians(world.apertura), processing.radians(360 - world.apertura));
    }
 
    // Actualiza el mundo despues de cada frame. En este ejemplo, no cambia nada, solo retorna una copia del mundo
    processing.onTic = function (world) {
 
-      if (world.boca) {
-         world = make(world, { boca: !(world.apertura == 40), apertura: world.apertura + 10 });
-      } else {
-         world = make(world, { boca: (world.apertura == 0), apertura: world.apertura - 10 });
-      }
+      // if (world.boca) {
+      //    world = make(world, { boca: !(world.apertura == 40), apertura: world.apertura + 10 });
+      // } else {
+      //    world = make(world, { boca: (world.apertura == 0), apertura: world.apertura - 10 });
+      // }
+                  
+      world = make(world, ChangeDirection(world.pacman));
+      world = make(world, ChangePosition(world.pacman,processing));
 
-      if (world.direction == 37) {
-
-         world = make(world, { x: world.x - 10 });
-
-      } else if (world.direction == 38) {
-
-         world = make(world, { y: world.y - 10 });
-
-      } else if (world.direction == 39) {
-
-         world = make(world, { x: world.x + 10 });
-
-      } else if (world.direction == 40) {
-
-         world = make(world, { y: world.y + 10 });
-
-      }
-      
       return world;
    }
 
    //Implemente esta función si quiere que su programa reaccione a eventos del teclado
    processing.onKeyEvent = function (world, event) {
-      // Por ahora no cambia el mundo. Solo retorna una copia del mundo actual
-
-      if (event == 37 && world.y % 40 == 0) {
-         return make(world, { direction: event });
-      } else if (event == 38 && world.x % 40 == 0) {
-         return make(world, { direction: event });
-      } else if (event == 39 && world.y % 40 == 0) {
-         return make(world, { direction: event });
-      } else if (event == 40 && world.x % 40 == 0) {
-         return make(world, { direction: event });
-      }else{
-         return world;
-      }
+      world = make(world, {pacman:SetNextDirection(world.pacman, event,processing)});
+      return world;
    }
 
    //Implemente esta función si quiere que su programa reaccione a eventos del mouse

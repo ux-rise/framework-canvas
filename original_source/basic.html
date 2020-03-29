@@ -1,6 +1,6 @@
 <canvas id="canvas" width="300" height="300"></canvas>
-<script src="web-lib/processing.js"></script>
-<script src="web-lib/functional-light.js"></script>
+<script src="../web-lib/processing.js"></script>
+<script src="../web-lib/functional-light.js"></script>
 <script>
   //Vamos a usar http://processingjs.org/
   // o https://p5js.org/reference/
@@ -23,7 +23,7 @@
      * Esto se llama antes de iniciar el juego
      */
     processing.setup = function () {
-      processing.frameRate(10);
+      processing.frameRate(30);
       processing.size(400, 400);
       processing.state = { x: 0, y: 0, ancho: 200, alto: 100 };
       noLoop();
@@ -55,7 +55,7 @@
 
     // Actualiza el mundo despues de cada frame. En este ejemplo, no cambia nada, solo retorna una copia del mundo
     processing.onTic = function (world) {
-      return make(world, {});
+      return make(world, {x:world.x+10});
     }
 
     //Implemente esta función si quiere que su programa reaccione a eventos del mouse
