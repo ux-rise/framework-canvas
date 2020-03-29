@@ -10,14 +10,15 @@ function sketchProc(processing) {
       processing.size(481, 481);
       processing.state = {
          pacman: {
-            boca: false,
+            mouth: false,
             apertura: 20,
             x: 240,
             y: 240,
             direction: 0,
             NextDirection: 0,
             rotate: 0
-         }
+         },
+         constructor: false
       };
    }
 
@@ -33,9 +34,9 @@ function sketchProc(processing) {
          }
       }
 
-      makeMap(processing);
-
       processing.noStroke();
+
+      makeMap(mapCoors, processing);
 
       processing.fill(23, 100, 80);
       processing.translate(world.pacman.x, world.pacman.y);
@@ -46,28 +47,54 @@ function sketchProc(processing) {
    // Actualiza el mundo despues de cada frame. En este ejemplo, no cambia nada, solo retorna una copia del mundo
    processing.onTic = function (world) {
 
-      // if (world.boca) {
-      //    world = make(world, { boca: !(world.apertura == 40), apertura: world.apertura + 10 });
-      // } else {
-      //    world = make(world, { boca: (world.apertura == 0), apertura: world.apertura - 10 });
-      // }
-                  
+      world = make(world, { pacman: mouthMove(world.pacman) });
       world = make(world, ChangeDirection(world.pacman));
-      world = make(world, ChangePosition(world.pacman,processing));
+      world = make(world, ChangePosition(world.pacman, processing));
 
       return world;
    }
 
    //Implemente esta función si quiere que su programa reaccione a eventos del teclado
    processing.onKeyEvent = function (world, event) {
-      world = make(world, {pacman:SetNextDirection(world.pacman, event,processing)});
+      if (event == 107) {
+         world = make(world, { constructor: true });
+         mapCoors.push(coorFixer([world.mouseX, world.mouseY]));
+      } else if (event == 10) {
+         world = make(world, { constructor: false });
+      } else if (event == 109) {
+         mapCoors.pop();
+      }
+
+      if (!world.constructor) {
+         world = make(world, { pacman: SetNextDirection(world.pacman, event, processing) });
+      } else {
+         world = make(world, { pacman: SetNextDirection(world.pacman, 0, processing) });
+
+         if (event == 37) {
+            let c = mapCoors[mapCoors.length - 1];
+            mapCoors.pop();
+            mapCoors.push([c[0] - 20, c[1]])
+         } else if (event == 38) {
+            let c = mapCoors[mapCoors.length - 1];
+            mapCoors.pop();
+            mapCoors.push([c[0], c[1] - 20])
+         } else if (event == 39) {
+            let c = mapCoors[mapCoors.length - 1];
+            mapCoors.pop();
+            mapCoors.push([c[0] + 20, c[1]])
+         } else if (event == 40) {
+            let c = mapCoors[mapCoors.length - 1];
+            mapCoors.pop();
+            mapCoors.push([c[0], c[1] + 20])
+         }
+      }
+
       return world;
    }
 
    //Implemente esta función si quiere que su programa reaccione a eventos del mouse
    processing.onMouseEvent = function (world, event) {
-      // Por ahora no cambia el mundo. Solo retorna una copia del mundo actual
-      return make(world, {});
+      return make(world, { mouseX: event.mouseX, mouseY: event.mouseY });
    };
 
    /************************************************************************************/
