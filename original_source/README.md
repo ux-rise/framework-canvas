@@ -29,8 +29,6 @@ Esta pequeño sketch tiene ya includa la librería para programación funcional 
 
 ``` js
 let { append, cons, first, isEmpty, isList, length, rest } = functionalLight;
-console.log(length(cons(8, [1, 2, 3])));
-
 ``` 
 
 ## ticEventExample

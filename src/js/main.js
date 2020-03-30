@@ -18,7 +18,10 @@ function sketchProc(processing) {
             NextDirection: 0,
             rotate: 0
          },
-         constructor: false
+         constructor: {
+            enable:false,
+            direction:0
+         }
       };
    }
 
@@ -57,12 +60,15 @@ function sketchProc(processing) {
    //Implemente esta función si quiere que su programa reaccione a eventos del teclado
    processing.onKeyEvent = function (world, event) {
       if (event == 107) {
-         world = make(world, { constructor: true });
-         mapCoors.push(coorFixer([world.mouseX, world.mouseY]));
+         world = make(world,{constructor:make(world.constructor, { enable: true })});
+         let c = mapCoors[mapCoors.length - 1];
+         mapCoors.push([c[0], c[1]])
+
       } else if (event == 10) {
          world = make(world, { constructor: false });
-      } else if (event == 109) {
-         mapCoors.pop();
+      } else if (event == 109 && processing.state.constructor.enable) {
+         console.log('se dispara evento 109');         
+         mapCoors = listDeleter(mapCoors,mapCoors[mapCoors.length - 1]);
       }
 
       if (!world.constructor) {

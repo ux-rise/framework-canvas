@@ -795,7 +795,6 @@
                 try {
                   return new Processing(canvas, code.join("\n"));
                 } catch(e) {
-                  console.log("Processing.js: Unable to execute pjs sketch.");
                   throw e;
                 }
               } else {
@@ -21463,7 +21462,6 @@
       Processing.debug = (function() {
         if ("console" in window) {
           return function(msg) {
-            window.console.log('Processing.js: ' + msg);
           };
         }
         return noop;

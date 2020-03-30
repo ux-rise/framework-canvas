@@ -1,4 +1,4 @@
-const mapCoors = [
+let mapCoors = [
    [190, 210],
    [190, 270],
    [270, 230],
@@ -12,14 +12,25 @@ function makeMap(coors = [], processing) {
 
    const c = first(coors);
    processing.fill(85, 112, 236);
+
+   if (processing.state.constructor.enable){
+
+      // if(){
+      //    mapCoors = Deleter(mapCoors[mapCoors.length - 1]);
+      // }
+
+      if(length(coors) == 1){
+         processing.fill(85, 20, 20);
+      }
+   }
+
    processing.rect(first(c) - 10, first(rest(c)) - 10, 20, 20);
 
    return makeMap(rest(coors), processing);
 }
 
 function coorFixer(coor) {
-   console.log('coor', coor);
-
+   
    if (first(coor) % 40 == 0 && first(rest(coor)) % 40 == 0){
       return [first(coor)+10,first(rest(coor))+10];
    }

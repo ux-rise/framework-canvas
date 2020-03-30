@@ -20,6 +20,25 @@ function indexOf(list, value, index = 0) {
    }
 }
 
+/**
+ * @template indexOf (Array,any) => Array
+ * @description Elimina de la lista el primer elemento qu concuerde con el valor dado
+ * @param {Array} list 
+ * @param {any} value
+ */
+function listDeleter(list, value) {
+
+   if (isEmpty(list)) return list;
+   console.log(value,list);
+   if (first(list) == value) {
+      console.log('first(list) == value');      
+      return rest(list);
+   } else {
+      console.log('la otra condición');
+      return cons(first(list), listDeleter(rest(list), value))
+   }
+}
+
 /************************************************************************************
  * Movimiento de los personajes
 /************************************************************************************/
@@ -32,7 +51,7 @@ function indexOf(list, value, index = 0) {
  * @returns Object
  */
 function SetNextDirection(character, NextDirection) {
-   if (indexOf([0,37, 38, 39, 40], NextDirection) > -1) {
+   if (indexOf([0, 37, 38, 39, 40], NextDirection) > -1) {
       return Object.assign({}, character, { NextDirection });
    } else {
       return character;
@@ -88,9 +107,9 @@ function ChangePosition(character, processing) {
    } else if (character.direction == 39) {
 
       if (getCollition(mapCoors, { y1: character.y - 20, y2: character.y + 20, x1: character.x + 30 })) {
-         
+
          return character;
-      } else {         
+      } else {
          return Object.assign(character, {
             x: character.x >= processing.width ? -10 : character.x + 10,
             rotate: 0
@@ -117,7 +136,7 @@ function ChangePosition(character, processing) {
  * @param {String} characterName
  * @returns Bolean
  */
-function getCollition(coordinates,position) {
+function getCollition(coordinates, position) {
 
    if (isEmpty(coordinates)) return false;
    const c = first(coordinates);

@@ -225,7 +225,6 @@ function filter(l, f) {
  * @param {Array} a 
  * @param {function} f 
  * @returns {Array}
- * @example console.log(map([1,2,3], x => x*x)); // => [1, 4, 9]
  */
 
 

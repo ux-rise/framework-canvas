@@ -55,7 +55,6 @@
     * Actualiza el mundo cada vez que se oprime una tecla. Retorna el nuevo stado del mundo
     */
     processing.onKeyEvent = function (world, keyCode) {
-      console.log(keyCode);
       switch (keyCode) {
         case processing.UP:
           return make(world, { y: world.y - 5 });
@@ -76,7 +75,6 @@
           return make(world, { alto: world.alto - 5 });
           break;
         default:
-          console.log(keyCode);
           return make(world, {});
       }
     }

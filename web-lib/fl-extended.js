@@ -78,7 +78,6 @@ const { cons, first, rest, isEmpty, isList, append, length } = require('function
  * Apply a function f to each element of the array a
  * @param {Array} a 
  * @param {function} f 
- * @example console.log(map([1,2,3], x => x*x)); // => [1, 4, 9]
  */
 let map = function(a, f) {
     if (isEmpty(a)) {
