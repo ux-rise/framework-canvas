@@ -29,12 +29,9 @@ function indexOf(list, value, index = 0) {
 function listDeleter(list, value) {
 
    if (isEmpty(list)) return list;
-   console.log(value,list);
-   if (first(list) == value) {
-      console.log('first(list) == value');      
+   if (first(list)[0] == value[0] && first(list)[1] == value[1]) {
       return rest(list);
    } else {
-      console.log('la otra condición');
       return cons(first(list), listDeleter(rest(list), value))
    }
 }
@@ -61,27 +58,29 @@ function SetNextDirection(character, NextDirection) {
 /**
  * @template ChangeDirection (object,number) => object
  * @description Cambia la dirección de movimiento actual del personaje
- * @param {Object} character 
- * @param {number} direction
+ * @param {Object} world 
+ * @param {number} character
  * @returns Object
  */
-function ChangeDirection(character) {
+function ChangeDirection(world) {
 
-   if (indexOf([37, 39], character.NextDirection) > -1 && (character.y / 2) % 2 == 0) {
-      return Object.assign(character, { direction: character.NextDirection });
-
-   } else if (indexOf([38, 40], character.NextDirection) > -1 && (character.x / 2) % 2 == 0) {
-      return Object.assign(character, { direction: character.NextDirection });
-
+   if ((indexOf([37, 39], world.pacman.NextDirection) > -1 && (world.pacman.y / 2) % 2 == 0) ||
+      (indexOf([38, 40], world.pacman.NextDirection) > -1 && (world.pacman.x / 2) % 2 == 0)) {
+      return Object.assign({},
+         world,
+         {
+            pacman: Object.assign(world.pacman, { direction: world.pacman.NextDirection })
+         }
+      );
    } else {
-      return character;
+      return world;
    }
 }
 
 /**
- * @template ChangeDirection (object,number) => object
+ * @template ChangePosition (object,number) => object
  * @description Cambia la posición actual del personaje
- * @param {Object} character 
+ * @param {Object} character
  * @param {number} direction
  * @returns Object
  */
@@ -110,6 +109,9 @@ function ChangePosition(character, processing) {
 
          return character;
       } else {
+         console.log(Array(30).join('~'));
+      console.log(processing);
+      console.log(Array(30).join('~'));
          return Object.assign(character, {
             x: character.x >= processing.width ? -10 : character.x + 10,
             rotate: 0
@@ -158,14 +160,30 @@ function getCollition(coordinates, position) {
 /**
  * @template mouthMove (object) => object
  * @description Mueve la boca de pacman
- * @param {Object} character 
+ * @param {Object} world processing.state
  * @returns Object
  */
-function mouthMove(character) {
-   if (character.mouth) {
-      return Object.assign({}, character, { mouth: !(character.apertura == 40), apertura: character.apertura + 10 });
-   } else {
-      return Object.assign({}, character, { mouth: (character.apertura == 0), apertura: character.apertura - 10 });
-   }
+function mouthMove(world) {
+   if (world.pacman.mouth) {
 
+      return Object.assign({}, world, { pacman: Object.assign(world.pacman, { mouth: !(world.pacman.apertura == 40), apertura: world.pacman.apertura + 10 }) });
+   } else {
+      return Object.assign({}, world, { pacman: Object.assign(world.pacman, { mouth: (world.pacman.apertura == 0), apertura: world.pacman.apertura - 10 }) });
+      return Object.assign({}, world, { mouth: (world.pacman.apertura == 0), apertura: world.pacman.apertura - 10 });
+   }
+}
+
+function downloadMap() {
+   console.log('downloadMap');
+   
+   var element = document.createElement('a');
+   element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(localStorage.getItem('map')));
+   element.setAttribute('download', 'map.json');
+
+   element.style.display = 'none';
+   document.body.appendChild(element);
+
+   element.click();
+
+   document.body.removeChild(element);
 }

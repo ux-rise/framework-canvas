@@ -1,25 +1,21 @@
-let mapCoors = [
-   [190, 210],
-   [190, 270],
-   [270, 230],
-   [270, 250],
-   [110, 350],
-]
+let mapCoors = [[190,210],[190,270],[270,230],[270,250],[110,350],[10,10],[10,30],[10,50],[10,70],[10,90],[10,110],[10,130],[10,150],[10,170],[10,190],[10,210],[10,230],[10,250],[10,270],[10,290],[10,310],[10,330],[10,350],[10,370],[10,390],[10,410],[10,430],[10,450],[10,470],[30,470],[50,470],[70,470],[90,470],[110,470],[130,470],[170,470],[190,470],[210,470],[150,470],[230,470],[250,470],[270,470],[290,470],[310,470],[330,470],[350,470],[370,470],[390,470],[410,470],[430,470],[450,470],[470,450],[470,470],[470,430],[470,410],[470,390],[470,370],[470,350],[470,330],[470,310],[470,290],[470,270],[470,250],[470,230],[470,210],[470,190],[470,170],[470,150],[470,130],[470,110],[470,90],[470,70],[470,50],[470,30],[470,10],[450,10],[430,10],[410,10],[390,10],[370,10],[350,10],[330,10],[310,10],[290,10],[270,10],[250,10],[230,10],[210,10],[190,10],[170,10],[150,10],[130,10],[110,10],[90,10],[50,10],[30,10],[70,10],[70,30]]
+
+localStorage.setItem('map', JSON.stringify(mapCoors));
 
 function makeMap(coors = [], processing) {
 
    if (isEmpty(coors)) return;
 
    const c = first(coors);
-   processing.fill(85, 112, 236);
+   processing.fill(210, 220, 230);
 
-   if (processing.state.constructor.enable){
+   if (processing.state.constructor.enable) {
 
       // if(){
       //    mapCoors = Deleter(mapCoors[mapCoors.length - 1]);
       // }
 
-      if(length(coors) == 1){
+      if (length(coors) == 1) {
          processing.fill(85, 20, 20);
       }
    }
@@ -27,16 +23,4 @@ function makeMap(coors = [], processing) {
    processing.rect(first(c) - 10, first(rest(c)) - 10, 20, 20);
 
    return makeMap(rest(coors), processing);
-}
-
-function coorFixer(coor) {
-   
-   if (first(coor) % 40 == 0 && first(rest(coor)) % 40 == 0){
-      return [first(coor)+10,first(rest(coor))+10];
-   }
-
-   const x = first(coor) % 40 == 0 ? first(coor) : first(coor) - 1;
-   const y = first(rest(coor)) % 40 == 0 ? first(rest(coor)) : first(rest(coor)) - 1;
-   return coorFixer([x, y]);
-
 }

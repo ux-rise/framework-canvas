@@ -9,6 +9,8 @@ function sketchProc(processing) {
       processing.frameRate(30);
       processing.size(481, 481);
       processing.state = {
+         current_score: 0,
+         hight_score: 0,
          pacman: {
             mouth: false,
             apertura: 20,
@@ -16,62 +18,69 @@ function sketchProc(processing) {
             y: 240,
             direction: 0,
             NextDirection: 0,
-            rotate: 0
+            rotate: 0,
+            gluttony_mode: false
          },
          constructor: {
-            enable:false,
-            direction:0
+            enable: false,
+            direction: 0
          }
       };
    }
 
    // Dibuja algo en el canvas. Aqui se pone todo lo que quieras pintar
    processing.drawGame = function (world) {
-      processing.background(18, 20, 53);
+      
+      // Fondo del canvas
+      processing.background(0, 0, 0, 0); // negro con opacidad cero
       processing.stroke(1);
-      processing.fill(18, 20, 53);
+      processing.fill(0, 0, 0, 0); // negro con opacidad cero
 
+      // pinta la rejilla guía
       for (let y = 0; y < 480; y += 40) {
          for (let x = 0; x < 480; x += 40) {
             processing.rect(x, y, 40, 40);
          }
       }
-
       processing.noStroke();
-
+      
+      // laberinto actual
       makeMap(mapCoors, processing);
 
-      processing.fill(23, 100, 80);
+      // pacman
+      processing.fill(255, 250, 90);
       processing.translate(world.pacman.x, world.pacman.y);
-      processing.rotate(processing.radians(world.rotate));
-      processing.arc(0, 0, 30, 30, processing.radians(world.apertura), processing.radians(360 - world.apertura));
+      processing.rotate(processing.radians(world.pacman.rotate));
+
+      // movimiento de la boca
+      processing.arc(0, 0, 30, 30, processing.radians(world.pacman.apertura), processing.radians(360 - world.pacman.apertura));
    }
 
    // Actualiza el mundo despues de cada frame. En este ejemplo, no cambia nada, solo retorna una copia del mundo
    processing.onTic = function (world) {
 
-      world = make(world, { pacman: mouthMove(world.pacman) });
-      world = make(world, ChangeDirection(world.pacman));
-      world = make(world, ChangePosition(world.pacman, processing));
-
-      return world;
+      world = make({}, ChangeDirection(mouthMove(world)));
+      return make(world, { pacman: ChangePosition(world.pacman,processing) });
    }
 
    //Implemente esta función si quiere que su programa reaccione a eventos del teclado
    processing.onKeyEvent = function (world, event) {
-      if (event == 107) {
-         world = make(world,{constructor:make(world.constructor, { enable: true })});
+
+      console.log('event', event);
+
+      if (indexOf([107, 187], event) > -1) {
+         world = make(world, { constructor: make(world.constructor, { enable: true }) });
          let c = mapCoors[mapCoors.length - 1];
          mapCoors.push([c[0], c[1]])
 
       } else if (event == 10) {
          world = make(world, { constructor: false });
-      } else if (event == 109 && processing.state.constructor.enable) {
-         console.log('se dispara evento 109');         
-         mapCoors = listDeleter(mapCoors,mapCoors[mapCoors.length - 1]);
+      } else if (indexOf([109, 189], event) > -1 && processing.state.constructor.enable) {
+         let c = mapCoors[mapCoors.length - 1];
+         mapCoors = listDeleter(mapCoors, c);
       }
 
-      if (!world.constructor) {
+      if (!world.constructor.enable) {
          world = make(world, { pacman: SetNextDirection(world.pacman, event, processing) });
       } else {
          world = make(world, { pacman: SetNextDirection(world.pacman, 0, processing) });
@@ -80,6 +89,7 @@ function sketchProc(processing) {
             let c = mapCoors[mapCoors.length - 1];
             mapCoors.pop();
             mapCoors.push([c[0] - 20, c[1]])
+            localStorage.setItem('map', mapCoors.toString())
          } else if (event == 38) {
             let c = mapCoors[mapCoors.length - 1];
             mapCoors.pop();
@@ -93,6 +103,9 @@ function sketchProc(processing) {
             mapCoors.pop();
             mapCoors.push([c[0], c[1] + 20])
          }
+
+         localStorage.setItem('map', JSON.stringify(mapCoors));
+         
       }
 
       return world;

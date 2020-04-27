@@ -1,6 +1,6 @@
 
 body{
-   background-color:rgb(18, 20, 53);
+   background: linear-gradient(#142b40 0%, #6204b3 100%);
    color: rgb(85, 112, 236);
 }
 
@@ -9,11 +9,17 @@ body{
    justify-items:center;
    width: 100%;
    height: 100%;
+   background-color: transparent;
 }
 
+#logo{
+   position: relative;
+   width: 22%;
+}
 canvas{
-   width: 500;
-   height: 500;
+   width: 400;
+   height: 400;
+   background-color: transparent;
 }
 
 td{
