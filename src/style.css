@@ -14,11 +14,12 @@ body{
 
 #logo{
    position: relative;
-   width: 22%;
+   width: 20%;
+   min-width: 250px;
 }
 canvas{
-   width: 400;
-   height: 400;
+   width: 360;
+   height: 360;
    background-color: transparent;
 }
 

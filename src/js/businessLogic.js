@@ -1,8 +1,25 @@
 const { append, cons, first, isEmpty, isList, length, rest } = functionalLight;
-
 /************************************************************************************
  * Funciones auxiliares
 /************************************************************************************/
+
+/**
+ * @template downloadMap () => void
+ * @description Retorna el índice, del valor dado, dentro de la lista
+ * @param {Array} list 
+ * @param {any} value
+ * @param {Number} index campo calculado (NO pasar como parámetro)
+ */
+function downloadMap() {
+
+   var element = document.createElement('a');
+   element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(localStorage.getItem('map')));
+   element.setAttribute('download', 'map.json');
+   element.style.display = 'none';
+   document.body.appendChild(element);
+   element.click();
+   document.body.removeChild(element);
+}
 
 /**
  * @template indexOf (Array,any) => Number
@@ -21,7 +38,7 @@ function indexOf(list, value, index = 0) {
 }
 
 /**
- * @template indexOf (Array,any) => Array
+ * @template listDeleter (Array,any) => Array
  * @description Elimina de la lista el primer elemento qu concuerde con el valor dado
  * @param {Array} list 
  * @param {any} value
@@ -62,18 +79,22 @@ function SetNextDirection(character, NextDirection) {
  * @param {number} character
  * @returns Object
  */
-function ChangeDirection(world) {
+const ChangeDirection = function func(world, p = ['pacman', 'blue', 'yellow', 'red', 'rose']) {
 
-   if ((indexOf([37, 39], world.pacman.NextDirection) > -1 && (world.pacman.y / 2) % 2 == 0) ||
-      (indexOf([38, 40], world.pacman.NextDirection) > -1 && (world.pacman.x / 2) % 2 == 0)) {
-      return Object.assign({},
-         world,
-         {
-            pacman: Object.assign(world.pacman, { direction: world.pacman.NextDirection })
-         }
-      );
+   if (length(p) === 0) return world;
+
+   const name = first(p);
+   const character = world[name];
+
+   if ((indexOf([37, 39], character.NextDirection) > -1 && (character.y / 2) % 2 == 0) ||
+      (indexOf([38, 40], character.NextDirection) > -1 && (character.x / 2) % 2 == 0)) {
+
+      const properties = Object.assign({}, character, { direction: character.NextDirection });
+      const obj = eval(`Object({"${name}":${JSON.stringify(properties)}})`);
+      return func(Object.assign({}, world, obj), rest(p));
+
    } else {
-      return world;
+      return func(world, rest(p));
    }
 }
 
@@ -84,50 +105,55 @@ function ChangeDirection(world) {
  * @param {number} direction
  * @returns Object
  */
-function ChangePosition(character, processing) {
+const ChangePosition = function func(world, p = ['pacman', 'blue', 'yellow', 'red', 'rose']) {
+
+   if (length(p) === 0) return world;
+
+   const name = first(p);
+   const character = world[name];
 
    if (character.direction == 37) {
 
       if (getCollition(mapCoors, { y1: character.y - 20, y2: character.y + 20, x1: character.x - 30 })) {
-         return character;
+         return func(world, rest(p));
       } else {
-         return Object.assign(character, {
-            x: character.x <= -10 ? processing.width + 10 : character.x - 10,
-            rotate: 180
-         });
+
+         const properties = Object.assign(character, { x: character.x - 10, rotate: 180 });
+         const obj = eval(`Object({"${name}":${JSON.stringify(properties)}})`);
+         return func(Object.assign({}, world, obj), rest(p));
       }
 
    } else if (character.direction == 38) {
       if (getCollition(mapCoors, { x1: character.x - 20, x2: character.x + 20, y1: character.y - 30 })) {
-         return character;
+         return func(world, rest(p));
       } else {
-         return Object.assign(character, { y: character.y - 10, rotate: 270 });
+         const properties = Object.assign(character, { y: character.y - 10, rotate: 270 });
+         const obj = eval(`Object({"${name}":${JSON.stringify(properties)}})`);
+         return func(Object.assign({}, world, obj), rest(p));
       }
    } else if (character.direction == 39) {
 
       if (getCollition(mapCoors, { y1: character.y - 20, y2: character.y + 20, x1: character.x + 30 })) {
 
-         return character;
+         return func(world, rest(p));
       } else {
-         console.log(Array(30).join('~'));
-      console.log(processing);
-      console.log(Array(30).join('~'));
-         return Object.assign(character, {
-            x: character.x >= processing.width ? -10 : character.x + 10,
-            rotate: 0
-         });
+         const properties = Object.assign(character, { x: character.x + 10, rotate: 0 });
+         const obj = eval(`Object({"${name}":${JSON.stringify(properties)}})`);
+         return func(Object.assign({}, world, obj), rest(p));
       }
 
    } else if (character.direction == 40) {
 
       if (getCollition(mapCoors, { x1: character.x - 20, x2: character.x + 20, y1: character.y + 30 })) {
-         return character;
+         return func(world, rest(p));
       } else {
-         return Object.assign(character, { y: character.y + 10, rotate: 90 });
+         const properties = Object.assign(character, { y: character.y + 10, rotate: 90 });
+         const obj = eval(`Object({"${name}":${JSON.stringify(properties)}})`);
+         return func(Object.assign({}, world, obj), rest(p));
       }
 
    } else {
-      return character;
+      return func(world, rest(p));
    }
 }
 
@@ -163,27 +189,10 @@ function getCollition(coordinates, position) {
  * @param {Object} world processing.state
  * @returns Object
  */
-function mouthMove(world) {
+function MovingMouth(world) {
    if (world.pacman.mouth) {
-
       return Object.assign({}, world, { pacman: Object.assign(world.pacman, { mouth: !(world.pacman.apertura == 40), apertura: world.pacman.apertura + 10 }) });
    } else {
       return Object.assign({}, world, { pacman: Object.assign(world.pacman, { mouth: (world.pacman.apertura == 0), apertura: world.pacman.apertura - 10 }) });
-      return Object.assign({}, world, { mouth: (world.pacman.apertura == 0), apertura: world.pacman.apertura - 10 });
    }
-}
-
-function downloadMap() {
-   console.log('downloadMap');
-   
-   var element = document.createElement('a');
-   element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(localStorage.getItem('map')));
-   element.setAttribute('download', 'map.json');
-
-   element.style.display = 'none';
-   document.body.appendChild(element);
-
-   element.click();
-
-   document.body.removeChild(element);
 }

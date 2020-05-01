@@ -9,6 +9,8 @@ function sketchProc(processing) {
       processing.frameRate(30);
       processing.size(481, 481);
       processing.state = {
+         width: processing.width,
+         height: processing.height,
          current_score: 0,
          hight_score: 0,
          pacman: {
@@ -21,6 +23,28 @@ function sketchProc(processing) {
             rotate: 0,
             gluttony_mode: false
          },
+         blue: {
+            x: 240,
+            y: 240,
+            direction: 0,
+            NextDirection: 0,
+            scream_mode: false
+         },
+         yellow: {
+            x: 240, y: 240,
+            direction: 0, NextDirection: 0,
+            scream_mode: false
+         },
+         red: {
+            x: 240, y: 240,
+            direction: 0, NextDirection: 0,
+            scream_mode: false
+         },
+         rose: {
+            x: 240, y: 240,
+            direction: 0, NextDirection: 0,
+            scream_mode: false
+         },
          constructor: {
             enable: false,
             direction: 0
@@ -30,20 +54,20 @@ function sketchProc(processing) {
 
    // Dibuja algo en el canvas. Aqui se pone todo lo que quieras pintar
    processing.drawGame = function (world) {
-      
+
       // Fondo del canvas
       processing.background(0, 0, 0, 0); // negro con opacidad cero
       processing.stroke(1);
       processing.fill(0, 0, 0, 0); // negro con opacidad cero
 
-      // pinta la rejilla guía
+      // SÓLO PARA LA CREACIÓN DEL JUEGO
       for (let y = 0; y < 480; y += 40) {
          for (let x = 0; x < 480; x += 40) {
             processing.rect(x, y, 40, 40);
          }
       }
       processing.noStroke();
-      
+
       // laberinto actual
       makeMap(mapCoors, processing);
 
@@ -56,11 +80,16 @@ function sketchProc(processing) {
       processing.arc(0, 0, 30, 30, processing.radians(world.pacman.apertura), processing.radians(360 - world.pacman.apertura));
    }
 
+   function* OnTicGenerator() {
+      yield MovingMouth;
+      yield ChangePosition;
+      return ChangeDirection;
+   }
    // Actualiza el mundo despues de cada frame. En este ejemplo, no cambia nada, solo retorna una copia del mundo
-   processing.onTic = function (world) {
-
-      world = make({}, ChangeDirection(mouthMove(world)));
-      return make(world, { pacman: ChangePosition(world.pacman,processing) });
+   processing.onTic = function func(world, done = false, fn = OnTicGenerator()) {
+      if (done) return world;
+      const next = fn.next();
+      return func(next.value(world), next.done, fn);
    }
 
    //Implemente esta función si quiere que su programa reaccione a eventos del teclado
@@ -105,7 +134,7 @@ function sketchProc(processing) {
          }
 
          localStorage.setItem('map', JSON.stringify(mapCoors));
-         
+
       }
 
       return world;
