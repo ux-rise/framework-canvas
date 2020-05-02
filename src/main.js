@@ -96,7 +96,8 @@ function sketchProc(processing) {
       yield CookiesGenerator;
       yield MovingMouth;
       yield ChangePosition;
-      return ChangeDirection;
+      yield ChangeDirection;
+      return maxScore;
    }
    // Actualiza el mundo despues de cada frame. En este ejemplo, no cambia nada, solo retorna una copia del mundo
    processing.onTic = function func(world, done = false, fn = OnTicGenerator()) {
