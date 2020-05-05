@@ -94,9 +94,9 @@ function sketchProc(processing) {
     */
    function* OnTicGenerator() {
       yield CookiesGenerator;
-      yield MovingMouth;
-      yield ChangePosition;
+      yield MovingMouth;      
       yield ChangeDirection;
+      yield ChangePosition;
       return maxScore;
    }
    // Actualiza el mundo despues de cada frame. En este ejemplo, no cambia nada, solo retorna una copia del mundo
@@ -130,11 +130,11 @@ function sketchProc(processing) {
       if (!world.constructor.enable) {
 
          // pasa el valor de la tecla presionada (la intención de cambiar de dirección a pacman)
-         world = make(world, { pacman: SetNextDirection(world.pacman, event, processing) });
+         world = make(world, { pacman: SetNextDirection(world.pacman, event) });
       } else {
          
          // se pasa la intención de parar los movimientos de pacman
-         world = make(world, { pacman: SetNextDirection(world.pacman, 0, processing) });
+         world = make(world, { pacman: SetNextDirection(world.pacman, 0) });
 
          // SÓLO PARA LA CREACIÓN DEL JUEGO
          // constructor de laberintos

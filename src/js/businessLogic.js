@@ -9,6 +9,7 @@ const { append, cons, first, isEmpty, isList, length, rest } = functionalLight;
  * @returns Object
  */
 function SetNextDirection(character, NextDirection) {
+
    if (indexOf([0, 37, 38, 39, 40], NextDirection) > -1) {
       return Object.assign({}, character, { NextDirection });
    } else {
@@ -60,8 +61,11 @@ const ChangePosition = function func(world, p = ['pacman', 'blue', 'yellow', 're
    const name = first(p);
    const character = world[name];
 
+   if (document.getElementById('img_game_state').getAttribute('src').includes('boton_play')){
+      return func(world, rest(p));
+   }
    // Izquierda
-   if (character.direction == 37) {
+   else if (character.direction == 37) {
 
       if (GetCollition(world.mapCoors, { y1: character.y - 20, y2: character.y + 20, x1: character.x - 30 })) {
          return func(world, rest(p));
@@ -72,7 +76,7 @@ const ChangePosition = function func(world, p = ['pacman', 'blue', 'yellow', 're
          return func(Object.assign({}, world, obj), rest(p));
       }
 
-   // Arriba
+      // Arriba
    } else if (character.direction == 38) {
       if (GetCollition(world.mapCoors, { x1: character.x - 20, x2: character.x + 20, y1: character.y - 30 })) {
          return func(world, rest(p));
@@ -82,7 +86,7 @@ const ChangePosition = function func(world, p = ['pacman', 'blue', 'yellow', 're
          return func(Object.assign({}, world, obj), rest(p));
       }
 
-   // Derecha
+      // Derecha
    } else if (character.direction == 39) {
 
       if (GetCollition(world.mapCoors, { y1: character.y - 20, y2: character.y + 20, x1: character.x + 30 })) {
@@ -94,7 +98,7 @@ const ChangePosition = function func(world, p = ['pacman', 'blue', 'yellow', 're
          return func(Object.assign({}, world, obj), rest(p));
       }
 
-   // Abajo
+      // Abajo
    } else if (character.direction == 40) {
 
       if (GetCollition(world.mapCoors, { x1: character.x - 20, x2: character.x + 20, y1: character.y + 30 })) {
@@ -105,7 +109,7 @@ const ChangePosition = function func(world, p = ['pacman', 'blue', 'yellow', 're
          return func(Object.assign({}, world, obj), rest(p));
       }
 
-   // Otra tecla (No se mueve)
+      // Otra tecla (No se mueve)
    } else {
       return func(world, rest(p));
    }
@@ -119,13 +123,46 @@ const ChangePosition = function func(world, p = ['pacman', 'blue', 'yellow', 're
  * @returns Object
  */
 function MovingMouth(world) {
-   
+
    if (world.pacman.mouth) {
       return Object.assign({}, world, { pacman: Object.assign(world.pacman, { mouth: !(world.pacman.apertura == 40), apertura: world.pacman.apertura + 10 }) });
    } else {
       return Object.assign({}, world, { pacman: Object.assign(world.pacman, { mouth: (world.pacman.apertura == 0), apertura: world.pacman.apertura - 10 }) });
    }
 }
+
+/**
+ * @author Hernando H
+ * @template (object) => void
+ * @description Actualiza el valor del puntaje en la interfaz
+ * @param {Object} world 
+ */
+function SetCookieScore(world) {
+   document.getElementById('cookies').innerText = world.current_score;
+   document.getElementById('cherries').innerText = world.current_score;
+};
+
+/**
+ * @author Hernando H
+ * @template () => void
+ * @description Actualiza el valor del puntaje en la interfaz
+ */
+function ChangeImageGameState() {
+
+   const img = document.getElementById('img_game_state');
+   const spn = document.getElementById('spn_game_state');
+
+   if (img.getAttribute('src').includes('boton_pausa')) {
+      spn.innerText = 'Reanudar';
+      img.src = 'images/boton_play.png';
+   } else {
+      const new_img = document.createElement('img');
+      spn.innerText = 'Pausar';
+      img.src = 'images/boton_pausa.png';
+   }
+
+};
+
 
 /** ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /** ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -138,13 +175,11 @@ function MovingMouth(world) {
   * @param {Object} state
   * @returns {Object} state
   */
- function maxScore(state) {
-    console.log(lookforCookies(state.pacman, state.cookies));
-    
-   if (lookforCookies(state.pacman, state.cookies) == true) {      
-      //  scoreGame(state.cookies[lookPositionCookies(state.pacman, state.cookies, 0)].type);
-       const cookies = listDeleter(state.cookies,state.cookies[lookPositionCookies(state.pacman, state.cookies, 0)]);
-       return Object.assign({},state,{cookies});
+function maxScore(state) {
+   if (lookforCookies(state.pacman, state.cookies) == true) {
+      scoreGame(state.cookies[lookPositionCookies(state.pacman, state.cookies, 0)].type);
+      const cookies = listDelete(state.cookies, state.cookies[lookPositionCookies(state.pacman, state.cookies, 0)]);
+      return Object.assign({}, state, { cookies });
    }
    return state;
 }
@@ -159,11 +194,11 @@ function MovingMouth(world) {
  */
 function lookforCookies(pacman, cookies) {
    if (isEmpty(cookies)) {
-       return false;
+      return false;
    } else if (pacman.x == first(cookies).x && pacman.y == first(cookies).y) {
-       return true;
+      return true;
    } else {
-       return lookforCookies(pacman, rest(cookies));
+      return lookforCookies(pacman, rest(cookies));
    }
 }
 
@@ -176,9 +211,9 @@ function lookforCookies(pacman, cookies) {
  */
 function scoreGame(valor) {
    if (valor == 1) {
-       score += 10;
+      score += 10;
    } else if (valor == 2) {
-       score += 50;
+      score += 50;
    }
 }
 
@@ -194,11 +229,11 @@ function scoreGame(valor) {
 function lookPositionCookies(pacman, cookies, indice) {
 
    if (isEmpty(cookies)) {
-       return -1;
+      return -1;
    } else if (pacman.x == first(cookies).x && pacman.y == first(cookies).y) {
-       return indice;
+      return indice;
    } else {
-       return lookPositionCookies(pacman, rest(cookies), indice + 1);
+      return lookPositionCookies(pacman, rest(cookies), indice + 1);
    }
 }
 
@@ -213,33 +248,34 @@ function lookPositionCookies(pacman, cookies, indice) {
  */
 function listDelete(l, n) {
    if (n == length(l) - 1) {
-       return invertir(allLast(l))
+      return invertir(allLast(l))
    }
 
    function allLast(l, aux = []) {
-       if (length(l) == 1) {
-           return aux;
-       } else {
-           return allLast(rest(l), cons(first(l), aux))
-       }
+      if (length(l) == 1) {
+         return aux;
+      } else {
+         return allLast(rest(l), cons(first(l), aux))
+      }
    }
 
    function invertir(l, b = []) {
-       if (isEmpty(l)) {
-           return b;
-       } else {
-           return invertir(rest(l), cons(first(l), b));
-       }
+      if (isEmpty(l)) {
+         return b;
+      } else {
+         return invertir(rest(l), cons(first(l), b));
+      }
    }
    function functionAux(l, n, lAux = [], i = 0) {
-       if (isEmpty(l)) {
-           return invertir(lAux);
-       }
-       if (n == i) {
-           return functionAux(rest(rest(l)), n, cons(first(rest(l)), lAux), i + 1)
-       } else {
-           return functionAux(rest(l), n, cons(first(l), lAux), i + 1)
-       }
+      if (isEmpty(l)) {
+         return invertir(lAux);
+      }
+      if (n == i) {
+         return functionAux(rest(rest(l)), n, cons(first(rest(l)), lAux), i + 1)
+      } else {
+         return functionAux(rest(l), n, cons(first(l), lAux), i + 1)
+      }
    }
    return functionAux(l, n)
 }
+

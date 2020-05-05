@@ -1,7 +1,13 @@
 
-body{
+body,html{
    background: linear-gradient(#142b40 0%, #6204b3 100%);
    color: rgb(85, 112, 236);
+   margin: 0;
+}
+
+body,html * {
+   user-select:none;
+   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 #container{
@@ -25,4 +31,63 @@ canvas{
 
 td{
    text-align: right;
+}
+
+.btns{
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   z-index: 99;
+}
+
+.btns * {
+   text-align: center;
+   color: black;
+   margin: 0;
+   margin-top: -5px; 
+}
+
+.btns img:hover{
+   filter: contrast(1.3);
+}
+
+.scores{
+   display: flex;
+   flex-direction: row;
+   justify-content: start;
+   align-items: center;
+   z-index: 99;
+}
+
+.scores img{
+   margin-bottom: 10px;
+}
+
+.scores * {
+   color: black;
+   margin: 0;
+   margin-top: -5px;
+   margin-left: 5px;
+   margin-bottom: 10px;
+}
+
+.lifes{
+   width: 360;
+   display: flex;
+   position: fixed;
+   bottom: 90px;
+   flex-direction: row;
+   justify-content: start;
+   align-items: center;
+   z-index: 99;
+
+}
+
+.footer{
+   width: 360;
+   display: flex;
+   flex-direction: row;
+   justify-content: space-around;
+   align-items: flex-end;
+   margin-bottom: 5px;
 }
