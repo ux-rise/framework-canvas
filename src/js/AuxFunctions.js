@@ -1,3 +1,4 @@
+const { append, cons, first, isEmpty, isList, length, rest } = functionalLight;
 /************************************************************************************
  * Funciones auxiliares
 /************************************************************************************/
@@ -72,4 +73,33 @@ function listDeleter(list, value) {
          return cons(first(list), listDeleter(rest(list), value))
       }
    }
+}
+
+
+/**
+ * Llama a una función de devolución de llamada para cada elemento de una lista
+ * y devuelve una lista que contiene los resultados.
+ * @author Hernando H
+ * @param {Array} list
+ * @param {Function} process
+ * @example ListMap([1, 2, 3, 4], (x) => x * x); // => [1, 4, 9, 16]
+ */
+function ListMap(list, process) {
+
+   // procesa cada elemento de la lista
+   function _internal(a, process, b = []) {
+
+      if (isEmpty(a)) return b;
+      return _internal(rest(a), process, cons(process(first(a)), b));
+
+   }
+
+   // restablece el orden alterado por cons
+   function _internal_reverse(a = [], b = []) {
+      if (isEmpty(a)) return b;
+      return _internal_reverse(rest(a), cons(first(a), b));
+   }
+
+   return _internal_reverse(_internal(list, process));
+
 }

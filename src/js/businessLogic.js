@@ -1,5 +1,3 @@
-const { append, cons, first, isEmpty, isList, length, rest } = functionalLight;
-
 /**
  * @template (object,number) => object
  * @description   Almacena la dirección en la que el usuario desea que se mueva el personaje
@@ -165,7 +163,7 @@ function ChangeImageGameState() {
 /**
  * @author Hernando H
  * @template (Object) => Object
- * @description Actualiza el valor del puntaje en la interfaz
+ * @description Establece el movimiento de los fantasmas
  */
 const HuntDown = function func(world, p = ['blue', 'yellow', 'red', 'rose']) {
 
@@ -175,23 +173,25 @@ const HuntDown = function func(world, p = ['blue', 'yellow', 'red', 'rose']) {
    const name = first(p);
    const ghost = world.blue;// world[name];
 
-
-   const PointMarks = function fun(map,pacman,ghost) {
-
-
-
-     
-      return l1;
-   }
-
    // Determinar si cazar o huir
    if (!world.pacman.gluttony_mode) {
 
-      const point = PointMarks(world.cookiesMap,world.pacman,ghost);
-      const properties = Object.assign(character, { x: point.x, y: point.y });
-      const obj = eval(`Object({"${name}":${JSON.stringify(properties)}})`);
-      // return func(Object.assign({}, world, obj), rest(p));
+      const cookiesMap = ListMap(world.cookiesMap, (point) => {
+         // world.pacman,ghost
+         if(point.hasOwnProperty('step')){
 
+            
+
+         }else{
+
+         }
+
+      });
+
+      console.log('cookiesMap',cookiesMap);
+      
+
+      // return func(Object.assign({}, world, obj), rest(p));
 
       return world;
    }
@@ -206,9 +206,9 @@ const HuntDown = function func(world, p = ['blue', 'yellow', 'red', 'rose']) {
 function maxScore(state) {
    if (lookforCookies(state.pacman, state.cookies) == true) {
       const cookies = listDelete(state.cookies, lookPositionCookies(state.pacman, state.cookies, 0));
-      const current_score = scoreGame(state.current_score,state.cookies[lookPositionCookies(state.pacman, state.cookies, 0)]);
+      const current_score = scoreGame(state.current_score, state.cookies[lookPositionCookies(state.pacman, state.cookies, 0)]);
       SetCookieScore(state);
-      return Object.assign({}, state, { cookies,current_score });
+      return Object.assign({}, state, { cookies, current_score });
    }
    return state;
 }
@@ -238,7 +238,7 @@ function lookforCookies(pacman, cookies) {
  * @param {Object} pacman
  * @returns {Boolean}
  */
-function scoreGame(score,valor) {
+function scoreGame(score, valor) {
    return score += 10;
 }
 

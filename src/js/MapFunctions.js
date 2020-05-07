@@ -85,6 +85,7 @@ function CookiesGenerator(world) {
    if (length(world.cookies) == 0 && world.current_score == 0) {
       const cookies = CookieCreator(world.mapCoors, world.width - 1, world.height - 1);
       const cookiesMap =cookies;
+      console.log(cookiesMap);
       return Object.assign({}, world, { cookies,cookiesMap });
    }
 
