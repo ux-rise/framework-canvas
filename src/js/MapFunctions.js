@@ -82,9 +82,10 @@ function CookiesGenerator(world) {
    }
 
    // Sólo se ejecuta al inicio del juego
-   if (length(world.cookies) == 0) {
+   if (length(world.cookies) == 0 && world.current_score == 0) {
       const cookies = CookieCreator(world.mapCoors, world.width - 1, world.height - 1);
-      return Object.assign({}, world, { cookies });
+      const cookiesMap =cookies;
+      return Object.assign({}, world, { cookies,cookiesMap });
    }
 
    return world;
@@ -105,7 +106,7 @@ function CookiesPainter(cookies = [], processing) {
    const cookie = first(cookies);
    processing.fill(250, 230, 150);
    processing.stroke(1);
-   processing.ellipse(cookie.x, cookie.y, 15, 15);
+   processing.ellipse(cookie.x, cookie.y, 20, 20);
 
    return CookiesPainter(rest(cookies), processing);
 }

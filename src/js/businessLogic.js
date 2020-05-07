@@ -61,7 +61,7 @@ const ChangePosition = function func(world, p = ['pacman', 'blue', 'yellow', 're
    const name = first(p);
    const character = world[name];
 
-   if (document.getElementById('img_game_state').getAttribute('src').includes('boton_play')){
+   if (document.getElementById('img_game_state').getAttribute('src').includes('boton_play')) {
       return func(world, rest(p));
    }
    // Izquierda
@@ -139,7 +139,7 @@ function MovingMouth(world) {
  */
 function SetCookieScore(world) {
    document.getElementById('cookies').innerText = world.current_score;
-   document.getElementById('cherries').innerText = world.current_score;
+   // document.getElementById('cherries').innerText = world.current_score;
 };
 
 /**
@@ -160,30 +160,59 @@ function ChangeImageGameState() {
       spn.innerText = 'Pausar';
       img.src = 'images/boton_pausa.png';
    }
-
 };
 
-
-/** ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-/** ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-/** ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-
 /**
-  * @author Vitor Alomia
-  * @template (Object) => Object
-  * @description Esta función muestra el puntaje del juego
-  * @param {Object} state
-  * @returns {Object} state
-  */
+ * @author Hernando H
+ * @template (Object) => Object
+ * @description Actualiza el valor del puntaje en la interfaz
+ */
+const HuntDown = function func(world, p = ['blue', 'yellow', 'red', 'rose']) {
+
+   if (length(p) === 0) return world;
+
+   // Nombre y personaje actual
+   const name = first(p);
+   const ghost = world.blue;// world[name];
+
+
+   const PointMarks = function fun(map,pacman,ghost) {
+
+
+
+     
+      return l1;
+   }
+
+   // Determinar si cazar o huir
+   if (!world.pacman.gluttony_mode) {
+
+      const point = PointMarks(world.cookiesMap,world.pacman,ghost);
+      const properties = Object.assign(character, { x: point.x, y: point.y });
+      const obj = eval(`Object({"${name}":${JSON.stringify(properties)}})`);
+      // return func(Object.assign({}, world, obj), rest(p));
+
+
+      return world;
+   }
+
+   return world;
+}
+
+
+/** ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/** ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/** ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 function maxScore(state) {
    if (lookforCookies(state.pacman, state.cookies) == true) {
-      scoreGame(state.cookies[lookPositionCookies(state.pacman, state.cookies, 0)].type);
-      const cookies = listDelete(state.cookies, state.cookies[lookPositionCookies(state.pacman, state.cookies, 0)]);
-      return Object.assign({}, state, { cookies });
+      const cookies = listDelete(state.cookies, lookPositionCookies(state.pacman, state.cookies, 0));
+      const current_score = scoreGame(state.current_score,state.cookies[lookPositionCookies(state.pacman, state.cookies, 0)]);
+      SetCookieScore(state);
+      return Object.assign({}, state, { cookies,current_score });
    }
    return state;
 }
-
+/**pegue la funcion desde businessLogic directamente aquyi por que no la estaba reconociendo al momento de hacer el llamado */
 /**
  * @author Vitor Alomia
  * @template (Object) => Object
@@ -209,12 +238,8 @@ function lookforCookies(pacman, cookies) {
  * @param {Object} pacman
  * @returns {Boolean}
  */
-function scoreGame(valor) {
-   if (valor == 1) {
-      score += 10;
-   } else if (valor == 2) {
-      score += 50;
-   }
+function scoreGame(score,valor) {
+   return score += 10;
 }
 
 /**
@@ -242,40 +267,39 @@ function lookPositionCookies(pacman, cookies, indice) {
  * @author Vitor Alomia
  * @template (Array) => Object
  * @description Esta función elimina la galleta a lo que el pacman está en la posicion de n
- * @param {Array} l
- * @param {Number} n
+ * @param {Array} list
+ * @param {Number} number
  * @returns {Array} l
  */
-function listDelete(l, n) {
-   if (n == length(l) - 1) {
-      return invertir(allLast(l))
+function listDelete(list, number) {
+   if (number == length(list) - 1) {
+      return invertir(allLast(list))
    }
 
-   function allLast(l, aux = []) {
-      if (length(l) == 1) {
+   function allLast(list, aux = []) {
+      if (length(list) == 1) {
          return aux;
       } else {
-         return allLast(rest(l), cons(first(l), aux))
+         return allLast(rest(list), cons(first(list), aux))
       }
    }
 
-   function invertir(l, b = []) {
-      if (isEmpty(l)) {
+   function invertir(list, b = []) {
+      if (isEmpty(list)) {
          return b;
       } else {
-         return invertir(rest(l), cons(first(l), b));
+         return invertir(rest(list), cons(first(list), b));
       }
    }
-   function functionAux(l, n, lAux = [], i = 0) {
-      if (isEmpty(l)) {
+   function functionAux(list, number, lAux = [], indice = 0) {
+      if (isEmpty(list)) {
          return invertir(lAux);
       }
-      if (n == i) {
-         return functionAux(rest(rest(l)), n, cons(first(rest(l)), lAux), i + 1)
+      if (number == indice) {
+         return functionAux(rest(rest(list)), number, cons(first(rest(list)), lAux), indice + 1)
       } else {
-         return functionAux(rest(l), n, cons(first(l), lAux), i + 1)
+         return functionAux(rest(list), number, cons(first(list), lAux), indice + 1)
       }
    }
-   return functionAux(l, n)
+   return functionAux(list, number)
 }
-
