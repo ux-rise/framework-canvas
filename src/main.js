@@ -12,7 +12,7 @@ function sketchProc(processing) {
       processing.state = {
          width: processing.width,
          height: processing.height,
-         mapCoors: [[10, 10], [10, 30], [10, 50], [10, 70], [10, 90], [10, 110], [10, 130], [10, 150], [10, 170], [10, 190], [10, 210], [10, 230], [10, 250], [10, 270], [10, 290], [10, 310], [10, 330], [10, 350], [10, 370], [10, 390], [10, 410], [10, 430], [10, 450], [10, 470], [30, 470], [50, 470], [70, 470], [90, 470], [110, 470], [130, 470], [170, 470], [190, 470], [210, 470], [150, 470], [230, 470], [250, 470], [270, 470], [290, 470], [310, 470], [330, 470], [350, 470], [370, 470], [390, 470], [410, 470], [430, 470], [450, 470], [470, 450], [470, 470], [470, 430], [470, 410], [470, 390], [470, 370], [470, 350], [470, 330], [470, 310], [470, 290], [470, 270], [470, 250], [470, 230], [470, 210], [470, 190], [470, 170], [470, 150], [470, 130], [470, 110], [470, 90], [470, 70], [470, 50], [470, 30], [470, 10], [450, 10], [430, 10], [410, 10], [390, 10], [370, 10], [350, 10], [330, 10], [310, 10], [290, 10], [270, 10], [250, 10], [230, 10], [210, 10], [190, 10], [170, 10], [150, 10], [130, 10], [110, 10], [90, 10], [50, 10], [30, 10], [70, 10], [210, 290], [230, 290], [250, 290], [270, 290], [290, 290], [190, 290], [190, 270], [190, 250], [190, 230], [290, 230], [290, 270], [290, 270], [290, 250], [190, 230], [190, 230], [190, 30], [190, 50], [210, 50], [210, 30], [270, 30], [270, 50], [290, 50], [290, 30], [270, 110], [250, 110], [230, 110], [210, 110], [70, 70], [90, 70], [110, 70], [130, 70], [130, 90], [130, 110], [150, 110], [330, 110], [350, 110], [350, 90], [350, 70], [370, 70], [390, 70], [410, 70], [410, 130], [430, 130], [450, 130], [30, 130], [50, 130], [70, 130], [70, 190], [70, 210], [70, 230], [70, 290], [50, 290], [30, 290], [410, 290], [430, 290], [450, 290], [410, 230], [410, 210], [410, 190], [350, 170], [350, 190], [350, 210], [130, 210], [130, 190], [130, 170], [190, 170], [210, 170], [230, 170], [250, 170], [270, 170], [290, 170], [210, 230], [270, 230], [130, 270], [130, 290], [130, 310], [130, 330], [130, 350], [350, 350], [350, 330], [350, 310], [350, 290], [350, 270], [350, 410], [330, 410], [310, 410], [250, 450], [250, 430], [230, 430], [230, 450], [170, 410], [150, 410], [130, 410], [230, 370], [250, 370], [250, 350], [230, 350], [210, 350], [270, 350], [290, 350], [190, 350], [70, 350], [70, 370], [70, 390], [70, 410], [410, 410], [410, 390], [410, 370], [410, 350], [410, 350]],
+         mapCoors: [[10, 10], [10, 30], [10, 50], [10, 70], [10, 90], [10, 110], [10, 130], [10, 150], [10, 170], [10, 190], [10, 210], [10, 230], [10, 250], [10, 270], [10, 290], [10, 310], [10, 330], [10, 350], [10, 370], [10, 390], [10, 410], [10, 430], [10, 450], [10, 470], [30, 470], [50, 470], [70, 470], [90, 470], [110, 470], [130, 470], [170, 470], [190, 470], [210, 470], [150, 470], [230, 470], [250, 470], [270, 470], [290, 470], [310, 470], [330, 470], [350, 470], [370, 470], [390, 470], [410, 470], [430, 470], [450, 470], [470, 450], [470, 470], [470, 430], [470, 410], [470, 390], [470, 370], [470, 350], [470, 330], [470, 310], [470, 290], [470, 270], [470, 250], [470, 230], [470, 210], [470, 190], [470, 170], [470, 150], [470, 130], [470, 110], [470, 90], [470, 70], [470, 50], [470, 30], [470, 10], [450, 10], [430, 10], [410, 10], [390, 10], [370, 10], [350, 10], [330, 10], [310, 10], [290, 10], [270, 10], [250, 10], [230, 10], [210, 10], [190, 10], [170, 10], [150, 10], [130, 10], [110, 10], [90, 10], [50, 10], [30, 10], [70, 10], [190, 30], [190, 50], [210, 50], [210, 30], [270, 30], [270, 50], [290, 50], [290, 30], [270, 110], [250, 110], [230, 110], [210, 110], [70, 70], [90, 70], [110, 70], [130, 70], [130, 90], [130, 110], [150, 110], [330, 110], [350, 110], [350, 90], [350, 70], [370, 70], [390, 70], [410, 70], [410, 130], [430, 130], [450, 130], [30, 130], [50, 130], [70, 130], [70, 190], [70, 210], [70, 230], [70, 290], [50, 290], [30, 290], [410, 290], [430, 290], [450, 290], [410, 230], [410, 210], [410, 190], [350, 170], [350, 190], [350, 210], [130, 210], [130, 190], [130, 170], [190, 170], [210, 170], [230, 170], [250, 170], [270, 170], [290, 170], [130, 270], [130, 290], [130, 310], [130, 330], [130, 350], [350, 350], [350, 330], [350, 310], [350, 290], [350, 270], [350, 410], [330, 410], [310, 410], [250, 450], [250, 430], [230, 430], [230, 450], [170, 410], [150, 410], [130, 410], [230, 370], [250, 370], [250, 350], [230, 350], [210, 350], [270, 350], [290, 350], [190, 350], [70, 350], [70, 370], [70, 390], [70, 410], [410, 410], [410, 390], [410, 370], [410, 350], [410, 350], [290, 290], [210, 290], [230, 290], [250, 290], [270, 290], [190, 290], [190, 230], [210, 230], [270, 230], [290, 230], [290, 230], [290, 270], [290, 250], [190, 250], [190, 270], [190, 270]],
          current_score: 0,
          cookies: [], // coordenadas de las galletas existentes en el mapa
          cookiesMap: [], // coordenadas permanentes para varios usos
@@ -21,6 +21,8 @@ function sketchProc(processing) {
             apertura: 20,
             x: 240,
             y: 140,
+            oldx:null,
+            oldy:null,
             direction: 0,
             NextDirection: 0,
             rotate: 0,
@@ -28,23 +30,23 @@ function sketchProc(processing) {
          },
          blue: {
             x: 240, y: 260,
+            oldx:null, oldy:null,
             direction: 0, NextDirection: 0,
-            scream_mode: false
          },
          yellow: {
             x: 240, y: 260,
+            oldx:null, oldy:null,
             direction: 0, NextDirection: 0,
-            scream_mode: false
          },
          red: {
             x: 240, y: 260,
+            oldx:null, oldy:null,
             direction: 0, NextDirection: 0,
-            scream_mode: false
          },
          rose: {
             x: 240, y: 260,
+            oldx:null, oldy:null,
             direction: 0, NextDirection: 0,
-            scream_mode: false
          },
          constructor: {
             enable: false,
@@ -94,9 +96,9 @@ function sketchProc(processing) {
       // processing.ellipse(240, 240, 5, 5);
 
       processing.image(blue, world.blue.x - 15, world.blue.y - 14);
-      processing.image(red, world.red.x - 15, world.red.y - 14);
-      processing.image(yellow, world.yellow.x - 15, world.yellow.y - 14);
-      processing.image(rose, world.rose.x - 15, world.rose.y - 14);
+      // processing.image(red, world.red.x - 15, world.red.y - 14);
+      // processing.image(yellow, world.yellow.x - 15, world.yellow.y - 14);
+      // processing.image(rose, world.rose.x - 15, world.rose.y - 14);
 
       // pacman
       processing.fill(255, 250, 90);
@@ -105,7 +107,6 @@ function sketchProc(processing) {
       // movimiento de la boca de pacman
       processing.arc(0, 0, 30, 30, processing.radians(world.pacman.apertura), processing.radians(360 - world.pacman.apertura));
    }
-
 
    /**
     * @author Hernando H
@@ -119,10 +120,10 @@ function sketchProc(processing) {
    function* OnTicGenerator() {
       yield CookiesGenerator;
       yield MovingMouth;
+      yield ChaseMode;
       yield ChangeDirection;
       yield ChangePosition;
       return maxScore;
-      // return CookiesDeleter;
    }
    // Actualiza el mundo despues de cada frame. En este ejemplo, no cambia nada, solo retorna una copia del mundo
    processing.onTic = function func(world, done = false, fn = OnTicGenerator()) {
@@ -138,8 +139,8 @@ function sketchProc(processing) {
       // Activa el modo contructor de laberintos
       if (indexOf([107, 187], event) > -1) {
          world = make(world, { constructor: make(world.constructor, { enable: true }) });
-         let c = mapCoors[mapCoors.length - 1];
-         mapCoors.push([c[0], c[1]])
+         let c = world.mapCoors[world.mapCoors.length - 1];
+         world.mapCoors.push([c[0], c[1]])
 
          // Desactiva el modo contructor de laberintos
       } else if (event == 10) {
@@ -147,8 +148,8 @@ function sketchProc(processing) {
 
          // Elimina un elemento del laberinto
       } else if (indexOf([109, 189], event) > -1 && processing.state.constructor.enable) {
-         let c = mapCoors[mapCoors.length - 1];
-         mapCoors = listDeleter(mapCoors, c);
+         let c = world.mapCoors[world.mapCoors.length - 1];
+         world.mapCoors = listDeleter(world.mapCoors, c);
       }
 
       // Valida si se está contruyendo o jugando
@@ -165,23 +166,20 @@ function sketchProc(processing) {
          if (event == 37) {
             let c = world.mapCoors[world.mapCoors.length - 1];
             world.mapCoors.pop();
-            world.mapCoors.push([c[0] - 20, c[1]])
-            localStorage.setItem('map', world.mapCoors.toString())
+            world.mapCoors.push([c[0] - 20, c[1]]);
          } else if (event == 38) {
             let c = world.mapCoors[world.mapCoors.length - 1];
             world.mapCoors.pop();
-            world.mapCoors.push([c[0], c[1] - 20])
+            world.mapCoors.push([c[0], c[1] - 20]);
          } else if (event == 39) {
             let c = world.mapCoors[world.mapCoors.length - 1];
             world.mapCoors.pop();
-            world.mapCoors.push([c[0] + 20, c[1]])
+            world.mapCoors.push([c[0] + 20, c[1]]);
          } else if (event == 40) {
             let c = world.mapCoors[world.mapCoors.length - 1];
             world.mapCoors.pop();
-            world.mapCoors.push([c[0], c[1] + 20])
+            world.mapCoors.push([c[0], c[1] + 20]);
          }
-         localStorage.setItem('map', JSON.stringify(world.mapCoors));
-
       }
       return world;
    }
