@@ -120,7 +120,8 @@ function CookiesPainter(cookies = [], processing) {
  */
 function MapDownloader() {
    const element = document.createElement('a');
-   element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(processingInstance.state.cookiesMap)));
+   element.setAttribute('href', 'data:text/plain;charset=utf-8,' +
+   encodeURIComponent(JSON.stringify(processingInstance.state.mapCoors)));
    element.setAttribute('download', 'map.json');
    element.style.display = 'none';
    document.body.appendChild(element);
