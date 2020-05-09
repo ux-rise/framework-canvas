@@ -1,0 +1,53 @@
+<link rel="stylesheet" href="style.css">
+
+ 
+<div id="container">
+   <img id="logo" draggable="false" src="images/logo-personalizado.png" alt="">
+   <div>
+      <canvas id="canvasGame"></canvas>
+   </div>
+
+   <!-- <button type="button" onclick="MapDownloader()" style="position: fixed;top: 50%;left: 20%;" >MapDownloader</button> -->
+   <div class="footer">
+      <div class="lifes">
+         <img id="img_cherries" draggable="false" width="130" src="images/vidas_3.png" alt="">
+      </div>
+      <div class="scores">
+         <img id="img_cherries" draggable="false" src="images/menu_cherry.png" alt="">
+         <span id="cherries" style="cursor: default;">0000</span>
+      </div>
+      <div class="scores">
+         <img id="img_cookies" draggable="false" src="images/menu_cookie.png" alt="">
+         <span id="cookies" style="cursor: default;">00000</span>
+      </div>
+      <div class="btns">
+         <img draggable="false" style="cursor: pointer;" src="images/boton_atras.png" alt="">
+         <span>Pausar</span>
+      </div>
+      <div class="btns">
+         <img draggable="false" style="cursor: pointer;" src="images/boton_reiniciar.png" alt="">
+         <span>Pausar</span>
+      </div>
+      <div class="btns">
+         <img id="img_game_state" draggable="false" onclick="ChangeImageGameState()" style="cursor: pointer;" src="images/boton_pausa.png" alt="">
+         <span id="spn_game_state">Pausar</span>
+      </div>
+
+      <svg xmlns="http://www.w3.org/2000/svg" width="110%" height="90" style="position: fixed;bottom: 0px;left: 0;">
+         <path id="Trazado_1" data-name="Trazado 1" d="M.34-19.949,1366-59.969V20H0Z" transform="translate(0 79)"
+            fill="#fff" />
+      </svg>
+   </div>
+</div>
+
+<!-- librerias base -->
+<script src="../web-lib/processing.js"></script>
+<script src="../web-lib/functional-light.js"></script>
+<!-- archivos del proyecto -->
+<script src="js/AuxFunctions.js">
+   //este se debe cargar primero por que acá se importa functionalLight
+</script>
+<script src="js/businessLogic.js"></script>
+<script src="js/MapFunctions.js"></script>
+<script src="main.js"></script>
+ 
