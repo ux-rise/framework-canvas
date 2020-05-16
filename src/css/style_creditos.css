@@ -1,3 +1,4 @@
+/*Aqui tambien puedes reemplazar con lo que tengas*/
 body, html {
   height: 100%;
   background-repeat: no-repeat;
@@ -5,4 +6,55 @@ body, html {
   background-size: 100% 100%;
   user-select: none;
   margin: 0;
+  overflow: hidden;
+  z-index: -2;
+}
+
+.leyenda {
+  text-align: center;
+  color: #fff;
+  right: 0;
+  top: 0;
+  overflow-y: scroll;
+  width: auto;
+  height: 96%;
+  padding-right: 20%;
+  padding-left: 20%;
+  padding-top: 2%;
+  z-index: 0;
+}
+
+.leyenda::-webkit-scrollbar {
+  width: 6px;
+}
+
+.leyenda::-webkit-scrollbar-track {
+  background-color: rgba(240, 240, 240, 0.3);
+}
+
+.leyenda::-webkit-scrollbar-thumb {
+  background-color: #142b40;
+}
+
+.btns {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  margin-bottom: 5px;
+  margin-left: 5px;
+  z-index: 99;
+}
+
+.btns * {
+  text-align: center;
+  color: black;
+  margin: 0;
+  margin-top: -5px;
+}
+
+.btns img:hover {
+  filter: contrast(1.3);
 }

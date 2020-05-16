@@ -7,14 +7,66 @@
   <link rel="stylesheet" href="css/style_creditos.css">
 </head>
 
-<body>
-  <div class="">
+<body id="prueba" onclick="startMusic()">
+
+  <audio id="caseteSound" src="sounds/casete2.mp3"></audio>
+  <audio id="blueSkyBlues" src="sounds/Blue Sky Blues.mp3" loop></audio>
+  <audio id="reCreation" src="sounds/reCreation.mp3" loop></audio>
+  <audio id="theStarsLookDifferent" src="sounds/The Stars Look Different.mp3" loop></audio>
+  <audio id="betweenWorlds" src="sounds/Between Worlds.mp3" loop></audio>
+  <audio id="buttonPlay" src="sounds/button.mp3#t=,1"></audio>
+
+  <div class="leyenda">
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce nec luctus eros. Morbi posuere elementum sagittis. Fusce ullamcorper mi nisl, sit amet faucibus ex porta ac. Donec nec rhoncus risus. Quisque gravida egestas facilisis. Maecenas
+      ornare augue a sapien viverra faucibus. Fusce velit lacus, fermentum vel turpis sed, blandit posuere mauris. Aenean dictum, purus in feugiat mollis, massa libero aliquet erat, sit amet iaculis enim odio eu justo. Phasellus augue felis, lobortis
+      sit amet tellus ut, pretium posuere leo. Cras ut orci a metus scelerisque faucibus vitae non diam. Aliquam auctor, mi eu maximus facilisis, sapien justo pulvinar diam, vitae porta sem ligula non dui. Maecenas mollis erat augue, non lacinia
+      ipsum pharetra sit amet. Sed in ligula vitae ex viverra vestibulum vitae vitae enim. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+
+      Vivamus auctor rhoncus neque vitae interdum. Etiam luctus commodo accumsan. Donec quis diam magna. Nulla convallis lectus ipsum, ut blandit nibh convallis eget. Sed gravida velit vitae dolor convallis, vitae pharetra dolor rhoncus. Nullam
+      posuere tellus at nisl pellentesque molestie. Vestibulum quis tellus mattis, efficitur lorem in, vestibulum lectus. Phasellus ut erat purus. Mauris ullamcorper ullamcorper libero. Sed suscipit, elit nec varius commodo, tortor risus scelerisque
+      ligula, id imperdiet libero ante sed justo. Phasellus maximus odio non quam dignissim imperdiet.
+
+      Maecenas viverra facilisis augue, non semper lorem placerat ut. Suspendisse potenti. Mauris nec tortor eget risus sodales scelerisque. Pellentesque eget elementum nisl. Morbi in posuere eros. Suspendisse leo nibh, pharetra sit amet congue nec,
+      vestibulum ut nibh. Vivamus nibh ligula, rhoncus quis feugiat at, convallis sit amet lorem. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Integer elit ante, consectetur non mi quis, fringilla imperdiet
+      ex. Fusce feugiat arcu libero, vel feugiat dui blandit nec. Nullam congue justo in fringilla euismod. Nunc placerat dapibus nisl, at ullamcorper risus aliquet a. Donec auctor fermentum viverra. Suspendisse sed leo bibendum, molestie diam ac,
+      maximus purus.
+
+      Nunc non diam suscipit, lacinia purus at, vestibulum tellus. Mauris id quam eget ex posuere luctus ut a sem. Sed ultricies accumsan enim id luctus. Mauris in laoreet mauris. Ut a feugiat arcu. Cras a semper nunc. Maecenas sodales ac orci eget
+      venenatis. Integer vitae magna aliquet augue tincidunt viverra. Suspendisse gravida velit in nulla placerat, et porttitor mauris rhoncus. Praesent rhoncus tortor ut sapien pretium, vel pulvinar est euismod.
+
+      In et erat magna. Nam vulputate justo nec velit pretium, ut rhoncus magna pellentesque. Vivamus ornare nunc sed diam venenatis vulputate. In volutpat bibendum viverra. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque
+      gravida, nisi at congue feugiat, ex tellus sodales sem, a volutpat ante nulla vel tortor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Ut vitae felis vel dolor scelerisque porta non quis arcu. Quisque
+      arcu enim, vulputate eget ultricies consectetur, porta eget elit. Fusce aliquet gravida velit quis lobortis. Nam finibus metus at nibh scelerisque, in dapibus erat porttitor. Quisque et nisl vel arcu sagittis porta sed a nulla. Donec pretium
+      imperdiet ligula, semper pulvinar nunc sodales eget. Interdum et malesuada fames ac ante ipsum primis in faucibus. Vestibulum ac tortor sed purus blandit consectetur. Maecenas egestas lacus ut lectus tempor, vel ullamcorper leo semper.
+
+      Nam vitae elementum felis. Vestibulum ornare nulla vulputate egestas lobortis. Donec mattis leo mauris, eu auctor ipsum feugiat at. Praesent et felis condimentum, tempor quam eu, placerat nisl. Etiam quis sem fermentum, condimentum leo a,
+      maximus metus. Duis mollis porttitor metus, ac luctus orci vestibulum sed. Integer volutpat vitae lectus non porta. In hendrerit condimentum lectus et consectetur. Fusce diam elit, aliquam ut aliquam a, varius eu arcu.
+
+      Vivamus pellentesque enim massa, ultrices tristique ligula rutrum ac. Integer ut ex at sapien accumsan feugiat eget et mi. Donec imperdiet aliquam aliquet. Nunc auctor fringilla est, quis pulvinar augue bibendum eu. Curabitur non felis et urna
+      tincidunt placerat. Sed condimentum finibus ipsum semper finibus. Nunc ut elementum ante.
+
+      Curabitur nec egestas turpis, eget elementum purus. Curabitur eget metus felis. Maecenas aliquam, ligula in laoreet bibendum, augue arcu commodo neque, sed viverra sapien ipsum quis nulla. Duis ullamcorper vel quam eget porta. Integer
+      scelerisque scelerisque semper. Vestibulum ex nisl, posuere nec lorem nec, ultrices luctus sapien. Morbi congue tincidunt mauris et lobortis. Praesent est nulla, euismod nec eros vel, luctus scelerisque magna. Morbi sagittis venenatis nulla,
+      sed luctus est dignissim vitae. Nullam porta urna quis orci molestie luctus. Praesent sed tincidunt nulla.
+
+      Proin elementum, urna non pharetra semper, ligula risus facilisis enim, id blandit elit elit non justo. Fusce pulvinar congue lectus in suscipit. Vestibulum a suscipit velit. Phasellus pharetra, nulla ac placerat dapibus, arcu magna luctus
+      felis, sit amet pharetra massa urna ac lorem. Duis placerat nisl lorem, in gravida purus mattis scelerisque. Morbi consectetur auctor interdum. Fusce fermentum, leo eget sagittis rhoncus, odio neque feugiat metus, in tempus enim dolor vitae
+      risus. Nullam in nunc euismod, blandit magna sit amet, convallis urna. Ut congue elementum lacus in pellentesque. Cras maximus tortor et quam tristique bibendum. Duis fermentum id tellus ac blandit.
+
+      Nunc tempus pretium mi ac iaculis. Aenean nibh lacus, gravida sit amet libero a, consectetur iaculis tortor. In rutrum ultricies urna, eu finibus nibh semper vel. Pellentesque quis mauris ut dolor fermentum dignissim non at eros. Donec
+      convallis quis massa quis imperdiet. Maecenas porta mauris nec dapibus bibendum. Nulla nec tellus non mi vestibulum fringilla vel sit amet mauris. Pellentesque et ex eget felis porttitor porttitor. Nullam sem odio, blandit non rutrum vel,
+      fringilla in urna. Integer laoreet elementum purus sit amet interdum. Maecenas convallis, nisi a tincidunt tincidunt, ex arcu rutrum nisl, molestie iaculis dolor ante sit amet turpis.</p>
+    <div class="btns">
+      <img draggable="false" onmouseover="buttonSound();" style="cursor: pointer;" src="images/boton_atras.png" alt="">
+      <span>Atras</span>
+    </div>
   </div>
   <div>
     <svg xmlns="http://www.w3.org/2000/svg" width="110%" height="90" style="position: fixed;bottom: 0px;left: 0;">
       <path id="Trazado_1" data-name="Trazado 1" d="M.34-19.949,1366-59.969V20H0Z" transform="translate(0 79)" fill="#fff" />
     </svg>
   </div>
+  <script src="js/audioDriver.js"></script>
 </body>
 
 </html>

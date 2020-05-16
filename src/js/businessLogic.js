@@ -1,3 +1,7 @@
+function make(data, attribute) {
+    return Object.assign({}, data, attribute);
+}
+
 /**
  * @template (object,number) => object
  * @description   Almacena la dirección en la que el usuario desea que se mueva el personaje
@@ -191,7 +195,6 @@ function MovingMouth(world) {
  */
 function SetCookieScore(world) {
     document.getElementById('cookies').innerText = world.current_score;
-    // document.getElementById('cherries').innerText = world.current_score;
 };
 
 /**
@@ -220,8 +223,6 @@ function ChangeImageGameState() {
  * @description Establece el movimiento de los fantasmas
  */
 const ChaseMode = function func(world, p = ['blue', 'yellow', 'red', 'rose']) {
-
-
 
     if (length(p) === 0) return world;
 
@@ -291,8 +292,6 @@ const NextStep = function func(options = [], bestOption) {
     return func(rest(options), a.steps < b.steps ? a : b);
 }
 
-
-
 /**
  * Retorna la dirección en la que el fantasma se moverá
  * @template (Object,Object) => number
@@ -312,9 +311,77 @@ const GetDirection = function func(ghost, option) {
         return x > 0 ? 39 : 37;
     return y > 0 ? 40 : 38;
 }
+/** ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/** ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Johan ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/** ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/**
+ * @author Johan Ruiz
+ * @template (Object) => Object
+ * @description Controla el ciclo de vidas de pacman
+ */
+const ChassingLifes = function func(world, p = ['blue', 'yellow', 'red', 'rose']) {
+
+    if (length(p) === 0) return world;
+
+    // Nombre y fantasma actual
+    const name = first(p);
+    const ghost = world[name];
+
+    const vidas = document.getElementById('img_cherries');
+    const enfriamiento = document.getElementById('cd');
+
+    if (ghost.x == world.pacman.x && ghost.y == world.pacman.y) {
+
+        // lossOfLife() es la funcion que reproduce un sonido al perder una vida.
+        lossOfLife();
+
+        return func(Object.assign(world, InitialState), rest(p));
+    }
+
+    //Aqui se cambias la imagenes de las vidas que quedan
+    if (world.pacman.lifes == 2) {
+        vidas.src = "images/vidas_2.png";
+    }
+    if (world.pacman.lifes == 1) {
+        vidas.src = "images/vidas.png";
+    }
+    if (world.pacman.lifes == 0) {
+        //Aqui cuando te quedes sin vidas aparecera un mensaje. Puedes quitarlo si quieres, solo quita
+        enfriamiento.style.display = "inline"; //Esto
+        enfriamiento.innerHTML = "Fin del juego!"; //Y esto
+        return func(make(world, {}), rest(p));
+        return make(world, {}); //En esta parte es cuando el mundo se detiene por que no tienes vidas;
+    }
+    //-----------Enfriamiento------------
+    //Esta ya es la parte del cronometro, no es una marravilla pero funciona
+    if (world.pacman.lifes !== 0) {
+        if (world.cooldown == 3 * fps) {
+            enfriamiento.style.display = "inline";
+            // clockSound() es la funcion que reproduce un sonido de un reloj durante el cooldown
+            clockSound();
+            enfriamiento.innerHTML = 3;
+        }
+        if (world.cooldown == 2 * fps) {
+            enfriamiento.innerHTML = 2;
+        }
+        if (world.cooldown == 1 * fps) {
+            enfriamiento.innerHTML = 1;
+        }
+        if (world.cooldown == 0) {
+            enfriamiento.style.display = "none";
+            enfriamiento.innerHTML = "";
+        }
+        if (world.cooldown !== 0) {
+            return func(make(world, { cooldown: world.cooldown - 1 }), rest(p));
+        }
+    }
+    //------------Fin------------
+    return func(make(world, {}), rest(p));
+}
 
 /** ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-/** ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/** ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Victor ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /** ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 function maxScore(state) {
     if (lookforCookies(state.pacman, state.cookies) == true) {
@@ -369,6 +436,7 @@ function lookPositionCookies(pacman, cookies, indice) {
     if (isEmpty(cookies)) {
         return -1;
     } else if (pacman.x == first(cookies).x && pacman.y == first(cookies).y) {
+        crunchSound();
         return indice;
     } else {
         return lookPositionCookies(pacman, rest(cookies), indice + 1);
@@ -382,7 +450,7 @@ function lookPositionCookies(pacman, cookies, indice) {
  * @description Esta función elimina la galleta a lo que el pacman está en la posicion de n
  * @param {Array} list
  * @param {Number} number
- * @returns {Array} l
+ * @returns {Array}
  */
 function listDelete(list, number) {
     if (number == length(list) - 1) {
