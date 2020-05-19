@@ -6,53 +6,49 @@
 <audio id="sMusic" src="#" loop></audio>
 <audio id="caseteSound" src="sounds/casete.mp3"></audio>
 <audio id="effects" src="#"></audio>
-<audio id="bSound" src=<audio id="caseteSound" src="src/sounds/casete2.mp3"></audio>
-<audio id="bSound" src="src/sounds/button.mp3#t=,1"></audio>
+<audio id="bSound" src="sounds/button.mp3#t=,1"></audio>
 
 
 <div id="container">
-   <img id="logo" draggable="false" src="images/logo-personalizado.png" alt="">
-   <div>
-      <canvas tabindex="1" id="canvasGame"></canvas>
-   </div>
+  <img id="logo" draggable="false" src="images/logo-personalizado.png" alt="">
+  <div>
+    <canvas tabindex="1" id="canvasGame"></canvas>
+  </div>
 
-   <!-- <button type="button" onclick="MapDownloader()" style="position: fixed;top: 50%;left: 20%;" >MapDownloader</button> -->
-   <div class="footer">
-      <div class="lifes">
-         <img id="img_cherries" draggable="false" width="130" src="images/vidas_3.png" alt="">
-      </div>
-      <div class="scores">
-         <img id="img_cherries" draggable="false" src="images/menu_cherry.png" alt="">
-         <span id="cherries" style="cursor: default;">0000</span>
-      </div>
-      <div class="scores">
-         <img id="img_cookies" draggable="false" src="images/menu_cookie.png" alt="">
-         <span id="cookies" style="cursor: default;">00000</span>
-      </div>
-      <div class="btns">
-         <img draggable="false" onclick="buttonSound();" style="cursor: pointer;" src="images/boton_atras.png" alt="">
-         <span>Atras</span>
-      </div>
-      <div class="btns">
-         <img draggable="false" onclick="buttonSound();" style="cursor: pointer;" src="images/boton_reiniciar.png"
-            alt="">
-         <span>Reiniciar</span>
-      </div>
-      <div class="btns">
-         <img id="img_game_state" draggable="false" onclick="ChangeImageGameState();buttonSound();"
-            style="cursor: pointer;" src="images/boton_pausa.png" alt="">
-         <span id="spn_game_state">Pausar</span>
-      </div>
+  <!-- <button type="button" onclick="MapDownloader()" style="position: fixed;top: 50%;left: 20%;" >MapDownloader</button> -->
+  <div class="footer">
+    <div class="lifes">
+      <img id="img_cherries" draggable="false" width="130" src="images/vidas_3.png" alt="">
+    </div>
+    <div class="scores">
+      <img id="img_cherries" draggable="false" src="images/menu_cherry.png" alt="">
+      <span id="cherries" style="cursor: default;">0000</span>
+    </div>
+    <div class="scores">
+      <img id="img_cookies" draggable="false" src="images/menu_cookie.png" alt="">
+      <span id="cookies" style="cursor: default;">00000</span>
+    </div>
+    <div class="btns">
+      <img draggable="false" onclick="buttonSound();" style="cursor: pointer;" src="images/boton_atras.png" alt="">
+      <span>Atras</span>
+    </div>
+    <div class="btns">
+      <img draggable="false" onclick="buttonSound();" style="cursor: pointer;" src="images/boton_reiniciar.png" alt="">
+      <span>Reiniciar</span>
+    </div>
+    <div class="btns">
+      <img id="img_game_state" draggable="false" onclick="ChangeImageGameState();buttonSound();" style="cursor: pointer;" src="images/boton_pausa.png" alt="">
+      <span id="spn_game_state">Pausar</span>
+    </div>
 
-      <svg xmlns="http://www.w3.org/2000/svg" width="110%" height="90" style="position: fixed;bottom: 0px;left: 0;">
-         <path id="Trazado_1" data-name="Trazado 1" d="M.34-19.949,1366-59.969V20H0Z" transform="translate(0 79)"
-            fill="#fff" />
-      </svg>
-   </div>
+    <svg xmlns="http://www.w3.org/2000/svg" width="110%" height="90" style="position: fixed;bottom: 0px;left: 0;">
+      <path id="Trazado_1" data-name="Trazado 1" d="M.34-19.949,1366-59.969V20H0Z" transform="translate(0 79)" fill="#fff" />
+    </svg>
+  </div>
 </div>
 
-<div class="cooldown">
-   <span id="cd"></span>
+<div id="cooldown">
+  <span id="cd"></span>
 </div>
 
 <!-- librerias base -->
@@ -61,7 +57,7 @@
 <!-- archivos del proyecto -->
 <script src="js/audioDriver.js"></script>
 <script src="js/AuxFunctions.js">
-   //este se debe cargar primero por que acá se importa functionalLight
+  //este se debe cargar primero por que acá se importa functionalLight
 </script>
 <script src="js/MapFunctions.js"></script>
 <script src="js/businessLogic.js"></script>

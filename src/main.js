@@ -4,42 +4,6 @@ let yellow = null;
 let rose = null;
 const fps = 15;
 
-const InitialState = {
-   pacman: {
-      mouth: false,
-      apertura: 20,
-      x: 240,
-      y: 400,
-      oldx: null,
-      oldy: null,
-      direction: 0,
-      NextDirection: 0,
-      rotate: 0,
-      gluttony_mode: false,
-      lifes: 3
-   },
-   blue: {
-      x: 240, y: 80,
-      oldx: null, oldy: null,
-      direction: 0, NextDirection: 0,
-   },
-   yellow: {
-      x: 240, y: 80,
-      oldx: null, oldy: null,
-      direction: 0, NextDirection: 0,
-   },
-   red: {
-      x: 240, y: 80,
-      oldx: null, oldy: null,
-      direction: 0, NextDirection: 0,
-   },
-   rose: {
-      x: 240, y: 80,
-      oldx: null, oldy: null,
-      direction: 0, NextDirection: 0,
-   },
-}
-
 function sketchProc(processing) {
 
    /** configuración inicial */
@@ -47,7 +11,7 @@ function sketchProc(processing) {
       processing.frameRate(fps);
       processing.size(481, 481);
       processing.state = {
-         cooldown: 0,
+         cooldown: -1,
          width: processing.width,
          height: processing.height,
          // mapCoors: [[10, 10], [10, 30], [10, 50], [10, 70], [10, 90], [10, 110], [10, 130], [10, 150], [10, 170], [10, 190], [10, 210], [10, 230], [10, 250], [10, 270], [10, 290], [10, 310], [10, 330], [10, 350], [10, 370], [10, 390], [10, 410], [10, 430], [10, 450], [10, 470], [30, 470], [50, 470], [70, 470], [90, 470], [110, 470], [130, 470], [170, 470], [190, 470], [210, 470], [150, 470], [230, 470], [250, 470], [270, 470], [290, 470], [310, 470], [330, 470], [350, 470], [370, 470], [390, 470], [410, 470], [430, 470], [450, 470], [470, 450], [470, 470], [470, 430], [470, 410], [470, 390], [470, 370], [470, 350], [470, 330], [470, 310], [470, 290], [470, 270], [470, 250], [470, 230], [470, 210], [470, 190], [470, 170], [470, 150], [470, 130], [470, 110], [470, 90], [470, 70], [470, 50], [470, 30], [470, 10], [450, 10], [430, 10], [410, 10], [390, 10], [370, 10], [350, 10], [330, 10], [310, 10], [290, 10], [270, 10], [250, 10], [230, 10], [210, 10], [190, 10], [170, 10], [150, 10], [130, 10], [110, 10], [90, 10], [50, 10], [30, 10], [70, 10], [190, 30], [190, 50], [210, 50], [210, 30], [270, 30], [270, 50], [290, 50], [290, 30], [270, 110], [250, 110], [230, 110], [210, 110], [70, 70], [90, 70], [110, 70], [130, 70], [130, 90], [130, 110], [150, 110], [330, 110], [350, 110], [350, 90], [350, 70], [370, 70], [390, 70], [410, 70], [410, 130], [430, 130], [450, 130], [30, 130], [50, 130], [70, 130], [70, 190], [70, 210], [70, 230], [70, 290], [50, 290], [30, 290], [410, 290], [430, 290], [450, 290], [410, 230], [410, 210], [410, 190], [350, 170], [350, 190], [350, 210], [130, 210], [130, 190], [130, 170], [190, 170], [210, 170], [230, 170], [250, 170], [270, 170], [290, 170], [130, 270], [130, 290], [130, 310], [130, 330], [130, 350], [350, 350], [350, 330], [350, 310], [350, 290], [350, 270], [350, 410], [330, 410], [310, 410], [250, 450], [250, 430], [230, 430], [230, 450], [170, 410], [150, 410], [130, 410], [230, 370], [250, 370], [250, 350], [230, 350], [210, 350], [270, 350], [290, 350], [190, 350], [70, 350], [70, 370], [70, 390], [70, 410], [410, 410], [410, 390], [410, 370], [410, 350], [410, 350], [290, 290], [210, 290], [230, 290], [250, 290], [270, 290], [190, 290], [190, 230], [210, 230], [270, 230], [290, 230], [290, 230], [290, 270], [290, 250], [190, 250], [190, 270], [190, 270]],
@@ -66,27 +30,39 @@ function sketchProc(processing) {
             NextDirection: 0,
             rotate: 0,
             gluttony_mode: false,
-            lifes: 3
+            lifes: 3,
          },
          blue: {
-            x: 240, y: 80,
-            oldx: null, oldy: null,
-            direction: 0, NextDirection: 0,
+            x: 240,
+            y: 80,
+            oldx: null,
+            oldy: null,
+            direction: 0,
+            NextDirection: 0,
          },
          yellow: {
-            x: 240, y: 80,
-            oldx: null, oldy: null,
-            direction: 0, NextDirection: 0,
+            x: 240,
+            y: 80,
+            oldx: null,
+            oldy: null,
+            direction: 0,
+            NextDirection: 0,
          },
          red: {
-            x: 240, y: 80,
-            oldx: null, oldy: null,
-            direction: 0, NextDirection: 0,
+            x: 240,
+            y: 80,
+            oldx: null,
+            oldy: null,
+            direction: 0,
+            NextDirection: 0,
          },
          rose: {
-            x: 240, y: 80,
-            oldx: null, oldy: null,
-            direction: 0, NextDirection: 0,
+            x: 240,
+            y: 80,
+            oldx: null,
+            oldy: null,
+            direction: 0,
+            NextDirection: 0,
          },
          constructor: {
             enable: false,
@@ -153,7 +129,7 @@ function sketchProc(processing) {
     * @template () => Generator<Object>
     * @description   Genera un conjunto de funciones que se usan en la función TIC,
     *                es más limpio que anidar las funciones.
-    * @param {Object} character 
+    * @param {Object} character
     * @param {number} NextDirection
     * @returns Generator<Object>
     */
@@ -241,29 +217,29 @@ function sketchProc(processing) {
    /************************************************************************************/
    /************************************************************************************/
    /************************************************************************************/
-   // ******************** De aquí hacia abajo no debe cambiar nada. ********************   
+   // ******************** De aquí hacia abajo no debe cambiar nada. ********************
 
-   // Esta es la función que pinta todo. Se ejecuta 60 veces por segundo. 
+   // Esta es la función que pinta todo. Se ejecuta 60 veces por segundo.
    // No cambie esta función. Su código debe ir en drawGame
    processing.draw = function () {
       processing.drawGame(processing.state);
       processing.state = processing.onTic(processing.state);
    };
 
-   // Esta función se ejecuta cada vez que presionamos una tecla. 
+   // Esta función se ejecuta cada vez que presionamos una tecla.
    // No cambie esta función. Su código debe ir en onKeyEvent
    processing.keyPressed = function () {
       processing.state = processing.onKeyEvent(processing.state, processing.keyCode);
    }
 
-   // Esta función se ejecuta cada vez movemos el mouse. 
+   // Esta función se ejecuta cada vez movemos el mouse.
    // No cambie esta función. Su código debe ir en onKeyEvent
    processing.mouseMoved = function () {
       processing.state = processing.onMouseEvent(processing.state,
          { action: "move", mouseX: processing.mouseX, mouseY: processing.mouseY });
    }
 
-   // Estas funciones controlan los eventos del mouse. 
+   // Estas funciones controlan los eventos del mouse.
    // No cambie estas funciones. Su código debe ir en OnMouseEvent
    processing.mouseClicked = function () {
       processing.state = processing.onMouseEvent(processing.state,
@@ -298,5 +274,57 @@ document.querySelector("canvas").onblur = function () {
    }, 500);
 }
 
+
+function initialState(world) {
+   console.log(world)
+   return {
+      cooldown: 4 * fps,
+      pacman: {
+         mouth: false,
+         apertura: 20,
+         x: 240,
+         y: 400,
+         oldx: null,
+         oldy: null,
+         direction: 0,
+         NextDirection: 0,
+         rotate: 0,
+         gluttony_mode: false,
+         lifes: world.pacman.lifes - 1,
+      },
+      blue: {
+         x: 240,
+         y: 80,
+         oldx: null,
+         oldy: null,
+         direction: 0,
+         NextDirection: 0,
+      },
+      yellow: {
+         x: 240,
+         y: 80,
+         oldx: null,
+         oldy: null,
+         direction: 0,
+         NextDirection: 0,
+      },
+      red: {
+         x: 240,
+         y: 80,
+         oldx: null,
+         oldy: null,
+         direction: 0,
+         NextDirection: 0,
+      },
+      rose: {
+         x: 240,
+         y: 80,
+         oldx: null,
+         oldy: null,
+         direction: 0,
+         NextDirection: 0,
+      },
+   }
+}
 
 document.querySelector("canvas").focus();
