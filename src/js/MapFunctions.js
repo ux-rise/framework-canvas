@@ -1,7 +1,7 @@
 /**
  * @author Hernando H
+ * Dibuja el laberinto actual
  * @template (Array,object) => void
- * @description Dibuja el laberinto actual
  * @param {Array} coors
  * @param {Object} processing 
  */
@@ -9,14 +9,13 @@ function MapPainter(coors = [], processing) {
 
    if (isEmpty(coors)) return;
 
-   // coordenadas a dibujar
+   // bloque a dibujar
    const c = first(coors);
    // color de ladrillo
    processing.fill(210, 220, 230);
 
    // SÓLO PARA LA CREACIÓN DEL JUEGO
-   // dibuja el último ladrillo de otro color para identificar
-   // el modo constructor
+   // dibuja el último ladrillo de otro color para identificar el modo constructor
    if (processing.state.constructor.enable) {
       if (length(coors) == 1) {
          processing.fill(255, 125, 0);
@@ -25,19 +24,16 @@ function MapPainter(coors = [], processing) {
 
    // dibuja ladrillo
    processing.rect(first(c) - 10, first(rest(c)) - 10, 20, 20);
-
    return MapPainter(rest(coors), processing);
 }
 
 /**
  * @author Hernando H
+ * Genera las galletas en los pasillos del laberinto
  * @template (object) => object
- * @description Genera las galletas en los pasillos del laberinto
  * @param {Array} world
- * @returns {Array} world
  */
 function CookiesGenerator(world) {
-
 
    // recorre el canvas validando donde deberán ir ubicadas las galletas
    // y retorna una lista de ubicaciones para dibujar
@@ -83,7 +79,7 @@ function CookiesGenerator(world) {
    // Sólo se ejecuta al inicio del juego
    if (length(world.cookies) == 0 && world.current_score == 0) {
       const cookies = CookieCreator(world.mapCoors, world.width - 1, world.height - 1);
-      const cookiesMap =cookies;
+      const cookiesMap = cookies;
       return Object.assign({}, world, { cookies, cookiesMap });
    }
 
@@ -93,8 +89,8 @@ function CookiesGenerator(world) {
 
 /**
  * @author Hernando H
+ * Dibuja las galletas en el canvas
  * @template (Array,object) => void
- * @description Dibuja las galletas en el canvas
  * @param {Array} coors
  * @param {Object} processing 
  */
@@ -110,18 +106,16 @@ function CookiesPainter(cookies = [], processing) {
    return CookiesPainter(rest(cookies), processing);
 }
 
-// SÓLO PARA LA CREACIÓN DEL JUEGO
 /**
  * @author Hernando H
+ * SÓLO PARA LA CREACIÓN DEL JUEGO
+ * Permite la descarga de las coordenadas del laberinto
  * @template () => void
- * @description Permite la descarga de las coordenadas del laberinto
- * @param {Array} list 
- * @param {any} value
  */
 function MapDownloader() {
    const element = document.createElement('a');
    element.setAttribute('href', 'data:text/plain;charset=utf-8,' +
-   encodeURIComponent(JSON.stringify(processingInstance.state.mapCoors)));
+      encodeURIComponent(JSON.stringify(processingInstance.state.mapCoors)));
    element.setAttribute('download', 'map.json');
    element.style.display = 'none';
    document.body.appendChild(element);
