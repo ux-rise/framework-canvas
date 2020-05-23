@@ -4,8 +4,12 @@ body, html {
   background-repeat: no-repeat;
   background: linear-gradient(#142b40 0%, #6204b3 100%) no-repeat center center fixed;
   background-size: 100% 100%;
-  user-select: none;
   margin: 0;
+}
+
+body, html * {
+  user-select: none;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {

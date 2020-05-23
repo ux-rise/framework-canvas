@@ -314,22 +314,22 @@ const ChassingLifes = function func(world, p = ['blue', 'yellow', 'red', 'rose']
 
     if (length(p) === 0) return world;
 
-    // Fantasma actual
+    // Nombre y fantasma actual
     const name = first(p);
     const ghost = world[name];
 
-    const vidas = document.getElementById('img_cherries');
-    const divE = document.getElementById('cooldown');
+    const botonPausa = document.getElementById('img_game_state')
+    const vidas = document.getElementById('img_vidas');
+    const divCD = document.getElementById('cooldown');
     const enfriamiento = document.getElementById('cd');
 
-    // Quita una vida a Pacman
     if (ghost.x == world.pacman.x && ghost.y == world.pacman.y) {
         ChangeImageGameState();
         lossOfLife();
         return func(Object.assign(world, initialState(world)), rest(p));
     }
 
-    //Aqui se cambian la imagenes de las vidas que quedan
+    //Aqui se cambias la imagenes de las vidas que quedan
     if (world.pacman.lifes == 2) {
         vidas.src = "images/vidas_2.png";
     }
@@ -337,15 +337,18 @@ const ChassingLifes = function func(world, p = ['blue', 'yellow', 'red', 'rose']
         vidas.src = "images/vidas.png";
     }
     if (world.pacman.lifes == 0) {
-        divE.style.display = "inline";
+        botonPausa.onclick = "buttonSound();";
+        if(!vidas.src.includes('sin_vidas')){
+            vidas.src = "images/sin_vidas.png";
+        }
+        divCD.style.display = "inline";
+        divCD.style.height = "auto";
         enfriamiento.innerHTML = "Fin del juego!";
-        return func(world, rest(p));
     }
-
-    //Muestra un temporizador para reanudar el juego luego de perder una vida
+    //-----------Enfriamiento------------
     if (world.pacman.lifes !== 0) {
         if (world.cooldown == 3 * fps) {
-            divE.style.display = "inline";
+            divCD.style.display = "inline";
             clockSound();
             enfriamiento.innerHTML = 3;
         }
@@ -357,14 +360,16 @@ const ChassingLifes = function func(world, p = ['blue', 'yellow', 'red', 'rose']
         }
         if (world.cooldown == 0) {
             ChangeImageGameState();
-            divE.style.display = "none";
+            divCD.style.display = "none";
             enfriamiento.innerHTML = "";
         }
         if (world.cooldown !== -1) {
-            return make(world, { cooldown: world.cooldown - 1 });
+            return make(world, {
+                cooldown: world.cooldown - 1
+            });
         }
     }
-
+    //------------Fin------------
     return func(make(world, {}), rest(p));
 }
 
