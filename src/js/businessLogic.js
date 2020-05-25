@@ -254,12 +254,15 @@ const RoouteMaker = function func(BaseCoors = [], character, target, RouteCoors 
     s = first(sides)
     const index = GetIndexOf(BaseCoors, Function('x', 'y', 'return {x,y}')(character.x + s[0], character.y + s[1]))
 
+
     if (index > -1) {
         const option = BaseCoors[index];
         if (character.oldx == option.x && character.oldy == option.y) {
             return func(BaseCoors, character, target, RouteCoors, rest(sides));
         }
-        Object.assign(option, { steps: Math.abs(target.x - option.x) + Math.abs(target.y - option.y) })
+        Object.assign(option, {
+            steps: Math.sqrt(Math.pow((target.x - option.x), 2) + Math.pow((target.y - option.y), 2)) //Math.abs(target.x - option.x) + Math.abs(target.y - option.y)
+        })
         return func(BaseCoors, character, target, cons(option, RouteCoors), rest(sides));
     } else {
         return func(BaseCoors, character, target, RouteCoors, rest(sides));
@@ -338,7 +341,7 @@ const ChassingLifes = function func(world, p = ['blue', 'yellow', 'red', 'rose']
     }
     if (world.pacman.lifes == 0) {
         botonPausa.onclick = "buttonSound();";
-        if(!vidas.src.includes('sin_vidas')){
+        if (!vidas.src.includes('sin_vidas')) {
             vidas.src = "images/sin_vidas.png";
         }
         divCD.style.display = "inline";
